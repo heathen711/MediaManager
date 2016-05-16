@@ -207,3 +207,205 @@ nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [7
 nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4087.mp4"
 /share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
 nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2068.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1393.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4649.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/3717.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4625.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/388.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/364.mp4"
+/share/Download/[HorribleSubs] Assassination Classroom S2 - 13 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Assassination Classroom S2 - 13 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map_metadata -1 "/share/Public/3539.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2492.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/855.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4823.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/122.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1967.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2333.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2307.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/3310.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1251.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2127.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2523.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2809.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/87.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1524.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2719.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/3847.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4525.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4063.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4284.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1174.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/3140.mp4"
+/share/Multimedia/Anime/Assassination Classroom/Season 02/Assassination Classroom - S02E14 - Secret Identity Time.mp4 already exsists, skipping conversion.
+/share/Multimedia/Anime/Assassination Classroom/Season 02/Assassination Classroom - S02E14 - Secret Identity Time.mp4 already exsists, skipping conversion.
+/share/Multimedia/Anime/Divine Gate/Season 01/Divine Gate - S01E06 - More Important Than Yourself.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Better Call Saul/Season 02/Better Call Saul - S02E09 - Nailed.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Billions/Season 01/Billions - S01E11 - Magical Thinking.mp4 already exsists, skipping conversion.
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/3793.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1624.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1356.mp4"
+/share/Multimedia/TV Shows/Blindspot/Season 01/Blindspot - S01E16 - Any Wounded Thief.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Blindspot/Season 01/Blindspot - S01E17 - Mans Telepathic Loyal Lookouts.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Castle (2009)/Season 08/Castle (2009) - S08E18 - Backstabber.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Hawaii Five-O/Season 06/Hawaii Five-O - S06E19 - Death With Father.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/NCIS_ Los Angeles/Season 07/NCIS_ Los Angeles - S07E21 - Head of the Snake.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/NCIS/Season 13/NCIS - S13E21 - Return to Sender.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Supergirl/Season 01/Supergirl - S01E19 - Myriad.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Elementary/Season 04/Elementary - S04E20 - Art Imitates Art.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Elementary/Season 04/Elementary - S04E19 - All In.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Scorpion/Season 02/Scorpion - S02E23 - Chernobyl Intentions (1).mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Scorpion/Season 02/Scorpion - S02E22 - Hard Knox.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/The Flash (2014)/Season 02/The Flash (2014) - S02E18 - Versus Zoom.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Blindspot/Season 01/Blindspot - S01E18 - One Begets Technique.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/NCIS_ New Orleans/Season 02/NCIS_ New Orleans - S02E21 - Collateral Damage.mp4 already exsists, skipping conversion.
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1525.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4527.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4216.mp4"
+/share/Multimedia/TV Shows/Marvel's Agents of S.H.I.E.L.D./Season 03/Marvel's Agents of S.H.I.E.L.D. - S03E17 - The Team.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Elementary/Season 04/Elementary - S04E21 - Ain't Nothing Like the Real Thing.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Hawaii Five-O/Season 06/Hawaii Five-O - S06E20 - Murder With A Golden Touch.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Billions/Season 01/Billions - S01E12 - The Conversation.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Elementary/Season 04/Elementary - S04E20 - Art Imitates Art.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Supergirl/Season 01/Supergirl - S01E20 - Better Angels.mp4 already exsists, skipping conversion.
+/share/Multimedia/Anime/Assassination Classroom/Season 02/Assassination Classroom - S02E15 - Confession Time.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Game of Thrones/Season 06/Game of Thrones - S06E01 - The Red Woman.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Castle (2009)/Season 08/Castle (2009) - S08E19 - Dead Again.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Castle (2009)/Season 08/Castle (2009) - S08E19 - Dead Again.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Elementary/Season 04/Elementary - S04E21 - Ain't Nothing Like the Real Thing.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Hawaii Five-O/Season 06/Hawaii Five-O - S06E20 - Murder With A Golden Touch.mp4 already exsists, skipping conversion.
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/541.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/537.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/3998.mp4"
+/share/Multimedia/TV Shows/Billions/Season 01/Billions - S01E12 - The Conversation.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Elementary/Season 04/Elementary - S04E20 - Art Imitates Art.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Marvel's Agents of S.H.I.E.L.D./Season 03/Marvel's Agents of S.H.I.E.L.D. - S03E17 - The Team.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Supergirl/Season 01/Supergirl - S01E20 - Better Angels.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Game of Thrones/Season 06/Game of Thrones - S06E01 - The Red Woman.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Castle (2009)/Season 08/Castle (2009) - S08E19 - Dead Again.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Elementary/Season 04/Elementary - S04E21 - Ain't Nothing Like the Real Thing.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Hawaii Five-O/Season 06/Hawaii Five-O - S06E20 - Murder With A Golden Touch.mp4 already exsists, skipping conversion.
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/3037.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/3759.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4520.mp4"
+/share/Multimedia/TV Shows/Billions/Season 01/Billions - S01E12 - The Conversation.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Elementary/Season 04/Elementary - S04E20 - Art Imitates Art.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Marvel's Agents of S.H.I.E.L.D./Season 03/Marvel's Agents of S.H.I.E.L.D. - S03E17 - The Team.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Supergirl/Season 01/Supergirl - S01E20 - Better Angels.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Game of Thrones/Season 06/Game of Thrones - S06E01 - The Red Woman.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Castle (2009)/Season 08/Castle (2009) - S08E19 - Dead Again.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Elementary/Season 04/Elementary - S04E21 - Ain't Nothing Like the Real Thing.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Hawaii Five-O/Season 06/Hawaii Five-O - S06E20 - Murder With A Golden Touch.mp4 already exsists, skipping conversion.
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4612.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/970.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4114.mp4"
+/share/Multimedia/TV Shows/Billions/Season 01/Billions - S01E12 - The Conversation.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Elementary/Season 04/Elementary - S04E20 - Art Imitates Art.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Marvel's Agents of S.H.I.E.L.D./Season 03/Marvel's Agents of S.H.I.E.L.D. - S03E17 - The Team.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Supergirl/Season 01/Supergirl - S01E20 - Better Angels.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Game of Thrones/Season 06/Game of Thrones - S06E01 - The Red Woman.mp4 already exsists, skipping conversion.
+/share/Multimedia/TV Shows/Castle (2009)/Season 08/Castle (2009) - S08E19 - Dead Again.mp4 already exsists, skipping conversion.
+
+/share/Multimedia/TV Shows/Elementary/Season 04/Elementary - S04E21 - Ain't Nothing Like the Real Thing.mp4 already exsists, skipping conversion.
+
+/share/Multimedia/TV Shows/Hawaii Five-O/Season 06/Hawaii Five-O - S06E20 - Murder With A Golden Touch.mp4 already exsists, skipping conversion.
+
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/3117.mp4"
+
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2123.mp4"
+
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4221.mp4"
+
+/share/Multimedia/TV Shows/Billions/Season 01/Billions - S01E12 - The Conversation.mp4 already exsists, skipping conversion.
+
+/share/Multimedia/TV Shows/Elementary/Season 04/Elementary - S04E20 - Art Imitates Art.mp4 already exsists, skipping conversion.
+
+/share/Multimedia/TV Shows/Marvel's Agents of S.H.I.E.L.D./Season 03/Marvel's Agents of S.H.I.E.L.D. - S03E17 - The Team.mp4 already exsists, skipping conversion.
+
+/share/Multimedia/TV Shows/Supergirl/Season 01/Supergirl - S01E20 - Better Angels.mp4 already exsists, skipping conversion.
+
+/share/Multimedia/TV Shows/Game of Thrones/Season 06/Game of Thrones - S06E01 - The Red Woman.mp4 already exsists, skipping conversion.
+
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/361.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/3079.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2795.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/116.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4134.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4450.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/3813.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/175.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4413.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/121.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2215.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1805.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4093.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2565.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/3565.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/3744.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2097.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/729.mp4"

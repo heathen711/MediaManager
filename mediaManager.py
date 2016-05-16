@@ -153,7 +153,7 @@ class MediaManager:
                                             print(self.config['failedConverts'])
                                         if curFile not in self.config['failedConverts']:
                                             self.rawTvShows.append(curFile)
-                                            print("    Added: " + fileName + " to TV Shows Queue.")
+                                            logger("    Added: " + fileName + " to TV Shows Queue.")
                                         else:
                                             print("    File was tried before and failed, skipping.")
                                         found = True
@@ -172,12 +172,11 @@ class MediaManager:
                                             choice = int(choice)
                                             if choice == 1:
                                                 self.rawMovies.append(os.path.join(path[0], fileName))
-                                                print("    Added: " + fileName + " to Movies Queue.")
-                                                # return True
+                                                logger("    Added: " + fileName + " to Movies Queue.")
                                                 break
                                             elif choice == 2:
                                                 self.rawTvShows.append(os.path.join(path[0], fileName))
-                                                print("    Added: " + fileName + " to TV Shows Queue.")
+                                                logger("    Added: " + fileName + " to TV Shows Queue.")
                                                 break
                                             elif choice == 3:
                                                 print("    Skipping...")
@@ -198,15 +197,6 @@ class MediaManager:
         self.config = config
         self.config['tvShowHandler'] = tvShow
         self.config['movieHandler'] = movie
-        try:
-            self.config['historyLog'] = open("history.log", 'a')
-        except:
-            print("Could not open history file. Please check folder permissions.")
-            
-        try:
-            self.config['errorLog'] = open("error.log", 'a')
-        except:
-            print("Could not open error log file. Please check folder permissions.")
 
         for extension in self.config['acceptedVideoExtensions']:
             self.config['commonTerms'].append(extension[1:])
@@ -218,7 +208,7 @@ class MediaManager:
         self.rawTvShows = []
 
         if os.path.isdir(self.config['watchedFolder']):
-            self.config['tvdbHandler'] = Tvdb(apikey = self.config['tvdbAPIkey'])
+            self.config['tvdbHandler'] = TVDB(self.config['tvdbAPIkey'], self.config['debug'])
             self.getFilesToCheck()
             self.parseFilesToCheck()
             self.parseFilesToConvert()

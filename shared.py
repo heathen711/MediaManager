@@ -14,9 +14,10 @@ import datetime
 import fractions
 from threading import Thread
 from time import sleep
-from tvdb import Tvdb
+from tvdb import TVDB
 from difflib import SequenceMatcher as SM
 from random import randint
+from heathen711 import getOnlineContent
 
 folderInfo = collections.namedtuple("folderInfo", "folderPath tvShows movies", verbose=False)
 
@@ -26,6 +27,21 @@ IMDB_Search = collections.namedtuple("IMDB_Search", "ID, name, year, info, match
 IMDB_Movie = collections.namedtuple("IMDB_Movie", "ID, name, year, plot", verbose=False)
 
 streamInfo = collections.namedtuple("streamInfo", "id, lang, type, info, unsupported", verbose=False)
+
+def logger(message):
+    if type(message) != str:
+        message = str(message)
+    logger = open("history.log", 'a')
+    logger.write(message+'\n')
+    logger.close()
+    print(message)
+    
+def error(message):
+    if type(message) != str:
+        message = str(message)
+    logger = open("error.log", 'a')
+    logger.write(message+'\n')
+    logger.close()
 
 def unicodeToString(text):
     if type(text) != str:
@@ -133,18 +149,17 @@ def convertVideo(originalVideo, outputFile, tempFolder, subCommand = False, keep
         return False
 
 def getOnlineData(URL, regEx = False):
-    try:
-        data = urllib.urlopen(URL).read()
-    except:
-        print('Error retriving online information about this show. Please check internet connection to the TvDB.')
-        return False
-    if regEx:
-        result = re.search(regEx, data)
-        if result:
-            return result.groups()
-        return False
+    data = getOnlineContent(URL)
+    if data:    
+        if regEx:
+            result = re.search(regEx, data)
+            if result:
+                return result.groups()
+            return False
+        else:
+            return data
     else:
-        return data
+        return False
 
 def imdbMovieInfo(movieID):
     URL = "http://www.imdb.com/title/tt" + movieID + "/"
@@ -198,7 +213,7 @@ def imdbSearch(title):
         data = urllib.urlopen(URL).read()
         data = data.replace("\n", "")
     except:
-        print('Error retriving online information about this show. Please check internet connection to the TvDB.')
+        print('Error retriving online information about this show. Please check internet connection to IMDB.')
         return False
 
     if "No results found for "+title in data:

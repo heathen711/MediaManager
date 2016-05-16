@@ -56,16 +56,16 @@ class tvEpisode(videoClass):
                 
         if not self.error:
             if self.manualOverRide:
-                self.outputFileName = self.showInfo['seriesname'] + " - S" + str(self.SeEp[0]).zfill(2) + "E" + str(self.SeEp[1]).zfill(2) + '.mp4'
+                self.outputFileName = self.showInfo['SeriesName'] + " - S" + str(self.SeEp[0]).zfill(2) + "E" + str(self.SeEp[1]).zfill(2) + '.mp4'
             else:
-                self.outputFileName = self.showInfo['seriesname'] + " - S" + str(self.SeEp[0]).zfill(2) + "E" + str(self.SeEp[1]).zfill(2) + ' - ' + self.tvShowEpisodeInfo['episodename'] + '.mp4'
+                self.outputFileName = self.showInfo['SeriesName'] + " - S" + str(self.SeEp[0]).zfill(2) + "E" + str(self.SeEp[1]).zfill(2) + ' - ' + self.tvShowEpisodeInfo['EpisodeName'] + '.mp4'
     
             self.outputFileName = checkFileName(self.outputFileName)
             if self.anime:
                 self.outputFile = self.config['animeShowFolder']
             else:
                 self.outputFile = self.config['tvShowsFolder']
-            self.outputFile += checkFileName(self.showInfo['seriesname']) + os.sep + "Season " + str(self.SeEp[0]).zfill(2) + os.sep 
+            self.outputFile += checkFileName(self.showInfo['SeriesName']) + os.sep + "Season " + str(self.SeEp[0]).zfill(2) + os.sep 
             self.destination = self.outputFile
             self.outputFile += self.outputFileName
             self.outputFile = checkPath(self.outputFile)
@@ -74,17 +74,17 @@ class tvEpisode(videoClass):
             
     def printOut(self):
         if not self.error:
-            return self.videoFile + " -> " + self.showInfo['seriesname'] + " S" + str(self.SeEp[0]).zfill(2) + "E" + str(self.SeEp[1]).zfill(2)
+            return self.videoFile + " -> " + self.showInfo['SeriesName'] + " S" + str(self.SeEp[0]).zfill(2) + "E" + str(self.SeEp[1]).zfill(2)
         else:
             return self.videoFile + " -> Error"
             
     def summary(self):
         if self.manualOverRide:
             self.error = False
-            print(self.showInfo['seriesname'] + " Season " + str(self.SeEp[0]) + " Episode " + str(self.SeEp[1]))
+            print(self.showInfo['SeriesName'] + " Season " + str(self.SeEp[0]) + " Episode " + str(self.SeEp[1]))
             return "No description avaliable due to manual override."
         try:
-            self.tvShowEpisodeInfo = self.config['tvdbHandler'][self.showInfo['seriesname']][self.SeEp[0]][self.SeEp[1]]
+            self.tvShowEpisodeInfo = self.showInfo[self.SeEp[0]][self.SeEp[1]]
         except:
             return False
         description = ""
@@ -92,16 +92,16 @@ class tvEpisode(videoClass):
         if self.config['debug']:
             print(self.showInfo.keys())
 
-        if "seriesname" in self.showInfo.keys():
-            description += unicodeToString(self.showInfo["seriesname"])
-        if "firstaired" in self.showInfo.keys():
-            description += " - " + str(self.showInfo["firstaired"]).split('-')[0]
+        if "SeriesName" in self.showInfo.showKeys():
+            description += unicodeToString(self.showInfo["SeriesName"])
+        if "FirstAired" in self.showInfo.showKeys():
+            description += " - " + str(self.showInfo["FirstAired"]).split('-')[0]
         description += " - Season " + str(self.SeEp[0]).zfill(2) + " Episode " + str(self.SeEp[1]).zfill(2)
-        if "network" in self.showInfo.keys():
-            description += " - " + str(self.showInfo["network"])
-        if "overview" in self.tvShowEpisodeInfo.keys():
+        if "Network" in self.showInfo.keys():
+            description += " - " + str(self.showInfo["Network"])
+        if "Overview" in self.tvShowEpisodeInfo.keys():
             try:
-                description += " - " + unicodeToString(self.tvShowEpisodeInfo["overview"])
+                description += " - " + unicodeToString(self.tvShowEpisodeInfo["Overview"])
             except:
                 description += " - No overview listed."
 
@@ -113,7 +113,11 @@ class tvEpisode(videoClass):
         while True:
             if exit:
                 break
-            if not newSeason:
+            if newSeason and self.config['auto']:
+                choice = str(newSeason)
+            elif not newSeason and self.config['auto']:
+                return False
+            elif not newSeason:
                 print("This show has " + str(len(self.seasonInfo)) + " seasons: 0 - " + str(len(self.seasonInfo)-1))
                 choice = raw_input("Enter in new season number: (Previous = " + str(self.SeEp[0]) + "): ")
             else:
@@ -173,7 +177,11 @@ class tvEpisode(videoClass):
             if exit:
                 break
             if not self.manualOverRide:
-                if not newEpisode:
+                if newEpisode and self.config['auto']:
+                    choice = str(newEpisode)
+                elif not newEpisode and self.config['auto']:
+                    return False
+                elif not newEpisode:
                     print("Season " + str(self.SeEp[0]) + " contains " + str(self.seasonInfo[self.SeEp[0]]) + " episodes.")
                     choice = raw_input("Enter in new episode number: (Previous = " + str(self.SeEp[1]) + "): ")
                 else:
@@ -263,13 +271,13 @@ class tvEpisode(videoClass):
         if self.error:
             return False
         self.seasonInfo = []
-        bottomSeason = self.config['tvdbHandler'][self.showInfo['seriesname']].keys()[0]
-        topSeason = self.config['tvdbHandler'][self.showInfo['seriesname']].keys()[-1]
+        bottomSeason = self.showInfo.keys()[0]
+        topSeason = self.showInfo.keys()[-1]
         if bottomSeason != 0:
             for filler in range(0, bottomSeason):
                 self.seasonInfo.append(0)
         for entry in range(bottomSeason, topSeason+1):
-            self.seasonInfo.append(self.config['tvdbHandler'][self.showInfo['seriesname']][entry].keys()[-1])
+            self.seasonInfo.append(self.showInfo[entry].keys()[-1])
 
         self.SeEp = [ '', '' ]
         slot = -1
@@ -319,7 +327,7 @@ class tvEpisode(videoClass):
                 if not done:
                     processAsFullCount = False
                     if seasonWasInPath and self.SeEp[0] <= topSeason:
-                        seasonTopEpisode = self.config['tvdbHandler'][self.showInfo['seriesname']][self.SeEp[0]].keys()[-1]
+                        seasonTopEpisode = self.showInfo[self.SeEp[0]].keys()[-1]
                         if int(self.showNumbers[0]) > seasonTopEpisode:
                             processAsFullCount = True
                     if (self.showNumbers[0] > topEpisode) and processAsFullCount != True:
@@ -366,13 +374,13 @@ class tvShow:
             print("Found a match.")
             if not self.config['auto']:
                 print(summary)
-            self.selectedTvShow = self.showInfo
+            self.selectedTvShow = self.config['tvdbHandler'].getShowInfo(self.showInfo['seriesid'])
             return True
         else:
             while True:
                 summary = self.summary()
                 print('\n' + self.episode)
-                print("Looking up " + self.showInfo['seriesname'] + " information... ")
+                print("Looking up " + self.showInfo['SeriesName'] + " information... ")
                 print("Displaying Pilot episode for confirmation: ")
                 print(summary)
                 print("1 - Use this TV Show.")
@@ -381,7 +389,7 @@ class tvShow:
                 if done.isdigit():
                     done = int(done)
                     if done == 1:
-                        self.selectedTvShow = self.showInfo
+                        self.selectedTvShow = self.config['tvdbHandler'].getShowInfo(self.showInfo['seriesid'])
                         return True
                     elif done == 2:
                         return False
@@ -394,27 +402,31 @@ class tvShow:
     def summary(self):
         if self.manualOverride:
             self.error = False
-            print(self.showInfo['seriesname'] + " Season " + str(self.SeEp[0]) + " Episode " + str(self.SeEp[1]))
+            print(self.showInfo['SeriesName'] + " Season " + str(self.SeEp[0]) + " Episode " + str(self.SeEp[1]))
             return "No description avaliable due to manual override."
         if self.config['debug']:
-            print self.showInfo['seriesname']
+            print self.showInfo['SeriesName']
             print self.SeEp
+        
         try:
-            self.tvShowEpisodeInfo = self.config['tvdbHandler'][self.showInfo['seriesname']][self.SeEp[0]][self.SeEp[1]]
+            self.tvShowEpisodeInfo = self.config['tvdbHandler'].getShowInfo(self.showInfo['seriesid'])[self.SeEp[0]][self.SeEp[1]]
         except:
+            if self.config['debug']:
+                print "Error retringing show info."
             return False
         description = ""
 
-        if "seriesname" in self.showInfo.keys():
-            description += self.showInfo["seriesname"]
-        if "firstaired" in self.showInfo.keys():
-            description += " - " + str(self.showInfo["firstaired"]).split('-')[0]
+        if "SeriesName" in self.showInfo.keys():
+            description += self.showInfo["SeriesName"]
+        if "FirstAired" in self.showInfo.keys():
+            description += " - " + str(self.showInfo["FirstAired"]).split('-')[0]
         description += " - Season " + str(self.SeEp[0]).zfill(2) + " Episode " + str(self.SeEp[1]).zfill(2)
-        if "network" in self.showInfo.keys():
-            description += " - " + str(self.showInfo["network"])
-        if "overview" in self.tvShowEpisodeInfo.keys():
+        if "Network" in self.showInfo.keys():
+            description += " - " + str(self.showInfo["Network"])
+        
+        if "Overview" in self.tvShowEpisodeInfo.keys():
             try:
-                description += " - " + self.tvShowEpisodeInfo["overview"]
+                description += " - " + self.tvShowEpisodeInfo["Overview"]
             except:
                 description += " - No overview listed."
         return description
@@ -436,135 +448,136 @@ class tvShow:
                     break
             
             results = self.config['tvdbHandler'].search(self.tvShowTitle)
-            if len(results) > 0:
-                firstTitle = results[0]["seriesname"]
-                
-                ## Necessary??
-                if firstTitle[0] == ' ':
-                    firstTitle = firstTitle[1:]
-                if firstTitle[-1] == ' ':
-                    firstTitle = firstTitle[:-1]
-                ## END
+            if results:
+                if len(results) > 0:
+                    firstTitle = results[0]["SeriesName"]
                     
-                ## TVdb disallows some tv broadcasted shows that no not count as tv series.
-                if firstTitle == '** 403: Series Not Permitted **':
-                    if not self.config['auto']:
-                        while True:
-                            print("Error, this file may be a TV Show but is not allowed on TVDB.")
-                            print("May need to try this as a movie to use IMDb information.")
-                            print("Would you like to try IMDb or skip?")
-                            print("1 - Try IMDb")
-                            print("2 - Skip")
-                            choice = raw_input("Choice: ")
-                            if len(choice) > 0:
-                                if choice.isdigit():
-                                    choice = int(choice)
-                                    if choice == 1:
-                                        ## add in handler for error movies
-                                        self.config['movies'].append(self.config['movieHandler'](self.config, self.folderPath, self.episode))
-                                        self.error = True
-                                        if self.config['debug']:
-                                            print("Error, show is actually a movie and will not be processed as a show.")
-                                        break
-                                    elif choice == 2:
-                                        self.error = True
-                                        if self.config['debug']:
-                                            print("Error, skipping this file.")
-                                        break
+                    ## Necessary??
+                    if firstTitle[0] == ' ':
+                        firstTitle = firstTitle[1:]
+                    if firstTitle[-1] == ' ':
+                        firstTitle = firstTitle[:-1]
+                    ## END
+                        
+                    ## TVdb disallows some tv broadcasted shows that no not count as tv series.
+                    if firstTitle == '** 403: Series Not Permitted **':
+                        if not self.config['auto']:
+                            while True:
+                                print("Error, this file may be a TV Show but is not allowed on TVDB.")
+                                print("May need to try this as a movie to use IMDb information.")
+                                print("Would you like to try IMDb or skip?")
+                                print("1 - Try IMDb")
+                                print("2 - Skip")
+                                choice = raw_input("Choice: ")
+                                if len(choice) > 0:
+                                    if choice.isdigit():
+                                        choice = int(choice)
+                                        if choice == 1:
+                                            ## add in handler for error movies
+                                            self.config['movies'].append(self.config['movieHandler'](self.config, self.folderPath, self.episode))
+                                            self.error = True
+                                            if self.config['debug']:
+                                                print("Error, show is actually a movie and will not be processed as a show.")
+                                            break
+                                        elif choice == 2:
+                                            self.error = True
+                                            if self.config['debug']:
+                                                print("Error, skipping this file.")
+                                            break
+                                        else:
+                                            print("Invalid choice. Please try again.")
                                     else:
-                                        print("Invalid choice. Please try again.")
+                                        print("Invalid input. Please try again.")
                                 else:
                                     print("Invalid input. Please try again.")
-                            else:
-                                print("Invalid input. Please try again.")
-                    else:
-                        self.error = True
-                        if self.config['debug']:
-                            print("Error, auto mode does not handle mis-identified files. Skipping.")
-                else:
-                    ## Filter first result and compare looking for a >90% match
-                    punctuation = string.punctuation.replace('(','').replace(')','')
-                    for char in range(0,len(punctuation)):
-                        if punctuation[char] in firstTitle:
-                            firstTitle = firstTitle.replace(punctuation[char], "")
-                    checkOthers = True
-                    if self.config['debug']:
-                        print(self.tvShowTitle.lower())
-                        print(firstTitle.lower())
-                    match = SM(None, self.tvShowTitle.lower(), firstTitle.lower()).ratio()
-                    print("First result has a " + "{0:.0f}%".format(match*100) + " match.")
-                    if (match > .90) or (len(results) == 1):
-                        self.showInfo = results[0]
-                        found = self.getShowConfirmation(True)
-                        if found:
-                            if firstTitle not in self.config['cachedTvShows']:
-                                self.config['cachedTvShows'].append(firstTitle)
-                            checkOthers = False
                         else:
-                            self.showInfo = False
-                    if checkOthers and not self.config['auto']:
-                        ## Prompt user for a selection in manual mode as first did not match >90%
-                        print("\n\nMake a selection for: " + self.episode)
-                        print("From: " + self.folderPath)
-                        while True:
-                            slot = 0
-                            for result in results:
-                                keys = result.keys()
-                                slot += 1
-                                display = str(slot).zfill(2) + " - "
-                                if "seriesname" in keys:
-                                    display += result["seriesname"]
-                                else:
-                                    print("Error, something went wrong in retrieving information from TVdb as we are missing title information.")
-                                    self.error = True
-                                if "firstaired" in keys:
-                                    display += " (" + str(result["firstaired"]) + ")"
-                                print(display)
-                            if not self.error:
-                                highChoice = slot
-                                slot += 1
-                                print(str(slot).zfill(2) + " - New Search")
-                                slot += 1
-                                print(str(slot).zfill(2) + " - Actually a Movie")
-                                slot += 1
-                                print(str(slot).zfill(2) + " - Exit")
-                                choice = raw_input("Enter in number associated with tvShow for more info: ")
-                                if choice.isdigit():
-                                    choice = int(choice)
-                                    if choice > 0 and choice <= highChoice:
-                                        choice -= 1
-                                        self.showInfo = results[choice]
-                                        found = self.getShowConfirmation()
-                                        if found:
-                                            if results[choice]['seriesname'] not in self.config['cachedTvShows']:
-                                                self.config['cachedTvShows'].append(results[choice]['seriesname'])
-                                                break
-                                    elif choice == slot-2:
-                                        while True:
-                                            userInput = raw_input("Enter in title to search: ")
-                                            if len(userInput) > 0:
-                                                self.tvShowTitle = userInput
-                                                self.lookup()
-                                                break
-                                            else:
-                                                print("Invalid input. Please try again.")
-                                        break
-                                    elif choice == slot-1:
-                                        self.error = True
-                                        self.config['movies'].append(self.config['movieHandler'](self.config, self.videoPath, self.videoFile))
-                                    elif choice == slot:
-                                        self.error = True
-                                        break
-                                    else:
-                                        print("Invalid choice. Please try again.")
-                                else:
-                                    print("Invalid input. Please try again.")
-                            else:
-                                break
-                    elif checkOthers and self.config['auto']:
-                        self.error = True
+                            self.error = True
+                            if self.config['debug']:
+                                print("Error, auto mode does not handle mis-identified files. Skipping.")
+                    else:
+                        ## Filter first result and compare looking for a >90% match
+                        punctuation = string.punctuation.replace('(','').replace(')','')
+                        for char in range(0,len(punctuation)):
+                            if punctuation[char] in firstTitle:
+                                firstTitle = firstTitle.replace(punctuation[char], "")
+                        checkOthers = True
                         if self.config['debug']:
-                            print("Error, auto mode and a >90% match was not made.")
+                            print(self.tvShowTitle.lower())
+                            print(firstTitle.lower())
+                        match = SM(None, self.tvShowTitle.lower(), firstTitle.lower()).ratio()
+                        print("First result has a " + "{0:.0f}%".format(match*100) + " match.")
+                        if (match > .90) or (len(results) == 1):
+                            self.showInfo = results[0]
+                            found = self.getShowConfirmation(True)
+                            if found:
+                                if firstTitle not in self.config['cachedTvShows']:
+                                    self.config['cachedTvShows'].append(firstTitle)
+                                checkOthers = False
+                            else:
+                                self.showInfo = False
+                        if checkOthers and not self.config['auto']:
+                            ## Prompt user for a selection in manual mode as first did not match >90%
+                            print("\n\nMake a selection for: " + self.episode)
+                            print("From: " + self.folderPath)
+                            while True:
+                                slot = 0
+                                for result in results:
+                                    keys = result.keys()
+                                    slot += 1
+                                    display = str(slot).zfill(2) + " - "
+                                    if "SeriesName" in keys:
+                                        display += result["SeriesName"]
+                                    else:
+                                        print("Error, something went wrong in retrieving information from TVdb as we are missing title information.")
+                                        self.error = True
+                                    if "firstaired" in keys:
+                                        display += " (" + str(result["firstaired"]) + ")"
+                                    print(display)
+                                if not self.error:
+                                    highChoice = slot
+                                    slot += 1
+                                    print(str(slot).zfill(2) + " - New Search")
+                                    slot += 1
+                                    print(str(slot).zfill(2) + " - Actually a Movie")
+                                    slot += 1
+                                    print(str(slot).zfill(2) + " - Exit")
+                                    choice = raw_input("Enter in number associated with tvShow for more info: ")
+                                    if choice.isdigit():
+                                        choice = int(choice)
+                                        if choice > 0 and choice <= highChoice:
+                                            choice -= 1
+                                            self.showInfo = results[choice]
+                                            found = self.getShowConfirmation()
+                                            if found:
+                                                if results[choice]['SeriesName'] not in self.config['cachedTvShows']:
+                                                    self.config['cachedTvShows'].append(results[choice]['SeriesName'])
+                                                    break
+                                        elif choice == slot-2:
+                                            while True:
+                                                userInput = raw_input("Enter in title to search: ")
+                                                if len(userInput) > 0:
+                                                    self.tvShowTitle = userInput
+                                                    self.lookup()
+                                                    break
+                                                else:
+                                                    print("Invalid input. Please try again.")
+                                            break
+                                        elif choice == slot-1:
+                                            self.error = True
+                                            self.config['movies'].append(self.config['movieHandler'](self.config, self.videoPath, self.videoFile))
+                                        elif choice == slot:
+                                            self.error = True
+                                            break
+                                        else:
+                                            print("Invalid choice. Please try again.")
+                                    else:
+                                        print("Invalid input. Please try again.")
+                                else:
+                                    break
+                        elif checkOthers and self.config['auto']:
+                            self.error = True
+                            if self.config['debug']:
+                                print("Error, auto mode and a >90% match was not made.")
             else:
                 ## Step through remaining words and search online until we get some results.
                 foundName = False
@@ -575,10 +588,11 @@ class tvShow:
                     except:
                         print("Error communicating with the tvdb. Please check your connection or try again later.")
                         self.error = True
-                    if len(results) > 0:
-                        self.tvShowTitle = ' '.join(tempTvShowTitle[:index])
-                        foundName = True
-                        break
+                    if results:
+                        if len(results) > 0 :
+                            self.tvShowTitle = ' '.join(tempTvShowTitle[:index])
+                            foundName = True
+                            break
                 if not foundName:
                     print("\n\nEpisode: " + self.episode)
                     print("From: " + self.folderPath)
@@ -771,8 +785,8 @@ class tvShow:
                                 self.episodes[choice].getConfirmation()
                             elif choice == len(self.episodes):
                                 while True:
-                                    bottomSeason = self.config['tvdbHandler'][self.selectedTvShow['seriesname']].keys()[0]
-                                    topSeason = self.config['tvdbHandler'][self.selectedTvShow['seriesname']].keys()[-1]
+                                    bottomSeason = self.config['tvdbHandler'][self.selectedTvShow['SeriesName']].keys()[0]
+                                    topSeason = self.config['tvdbHandler'][self.selectedTvShow['SeriesName']].keys()[-1]
                                     if bottomSeason == 0:
                                         count = topSeason + 1
                                     else:

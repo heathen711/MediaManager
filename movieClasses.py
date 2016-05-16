@@ -145,7 +145,7 @@ class movie(videoClass):
         
         #try:
         # <h1 itemprop="name" class="">UFC Fight Night: Silva vs. Bisping&nbsp;            </h1>
-        search = re.search("<h1 itemprop=\"name\" class=\"\">([\s\w\W]*?)</h1>", data)
+        search = re.search("<h1 itemprop=\"name\"(?:.*?)>([\s\w\W]*?)</h1>", data)
         if self.config['debug']:
             print(search.groups())
         if search:

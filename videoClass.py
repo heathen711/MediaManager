@@ -58,8 +58,8 @@ class videoClass:
                 print(exitCode)
             if exitCode != 0:
                 print('Error converting, ffmpeg did mot close correctly. Please try again.')
-                self.config['errorLog'].write(self.originalVideo + " -> ffmpeg error code: " + str(exitCode) + "\n")
-                self.config['errorLog'].write(self.command + "\n")
+                error(self.originalVideo + " -> ffmpeg error code: " + str(exitCode))
+                error(self.command)
                 try:
                     os.remove(tempFile)
                 except:
@@ -75,10 +75,11 @@ class videoClass:
                     print(self.outputFile)
                 try:
                     shutil.move(tempFile, self.outputFile)
-                    self.config['historyLog'].write(self.originalVideo + " -> " + self.outputFile + '\n')
+                    logger(self.originalVideo + " -> " + self.outputFile + '\n')
                     return True
                 except:
                     self.error = True
+                    error("Failed to move temp file: " + self.originalVideo + " -> " + self.outputFile + '\n')
                     print("Failed to move temp file to final destination. Check folder/file permissions.")
             else:
                 return False
@@ -101,7 +102,7 @@ class videoClass:
             if os.path.exists(self.outputFile):
                 while True:
                     if self.config['auto']:
-                        print(self.outputFile + " already exsists, skipping conversion.")
+                        logger(self.outputFile + " already exsists, skipping conversion.")
                         choice = 'n'
                     else:
                         choice = raw_input(self.videoTitle + " exsists, would you like to overwrite it? (Y/N): ")
