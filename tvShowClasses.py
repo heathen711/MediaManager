@@ -83,9 +83,15 @@ class tvEpisode(videoClass):
             self.error = False
             print(self.showInfo['SeriesName'] + " Season " + str(self.SeEp[0]) + " Episode " + str(self.SeEp[1]))
             return "No description avaliable due to manual override."
+        
         try:
             self.tvShowEpisodeInfo = self.showInfo[self.SeEp[0]][self.SeEp[1]]
         except:
+            return False
+            
+        if not self.tvShowEpisodeInfo:
+            if self.config['debug']:
+                print "Error retringing show info."
             return False
         description = ""
 
@@ -374,7 +380,7 @@ class tvShow:
             print("Found a match.")
             if not self.config['auto']:
                 print(summary)
-            self.selectedTvShow = self.config['tvdbHandler'].getShowInfo(self.showInfo['seriesid'])
+            self.selectedTvShow = self.showEpisodeInfo
             return True
         else:
             while True:
@@ -408,9 +414,16 @@ class tvShow:
             print self.showInfo['SeriesName']
             print self.SeEp
         
-        try:
-            self.tvShowEpisodeInfo = self.config['tvdbHandler'].getShowInfo(self.showInfo['seriesid'])[self.SeEp[0]][self.SeEp[1]]
-        except:
+        if self.showInfo:
+            self.showEpisodeInfo = self.config['tvdbHandler'].getShowInfo(self.showInfo['seriesid'])
+            if self.showEpisodeInfo:
+                self.tvShowEpisodeInfo = self.showEpisodeInfo[self.SeEp[0]][self.SeEp[1]]
+            else:
+                return False
+        else:
+            return False
+            
+        if not self.tvShowEpisodeInfo:
             if self.config['debug']:
                 print "Error retringing show info."
             return False
