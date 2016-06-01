@@ -415,3 +415,55 @@ nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [7
 nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2914.mp4"
 /share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
 nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4924.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4929.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/849.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4149.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4498.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4608.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2613.mp4"
+/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Haiyore! Nyaruko-san - 04 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2958.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv -> ffmpeg error code: 1
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 03 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1628.mp4"
+/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[HorribleSubs] Sekai Seifuku - Bouryaku no Zvezda - 10 [720p].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/4706.mp4"
+/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1851.mp4"
+/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/73.mp4"
+/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2084.mp4"
+/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/3029.mp4"
+/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1071.mp4"
+/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1263.mp4"
+/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/2428.mp4"
+/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/386.mp4"
+/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -i "/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1303.mp4"
+/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -report -i "/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/925.mp4"
+/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -report -i "/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1674.mp4"
+/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -report -i "/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/69.mp4"
+/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -report -i "/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/3328.mp4"
+/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -report -i "/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1328.mp4"
+/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -report -i "/share/Download/[FFF] Accel World [BD][720p-AAC]/[FFF] Accel World - 01 [BD][720p-AAC][562017AB].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:3 -scodec mov_text -map_metadata -1 "/share/Public/4829.mp4"
+/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -report -i "/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1018.mp4"
+/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv -> ffmpeg error code: -11
+nice -n 8 ffmpeg -report -i "/share/Download/[rori] Kokoro Connect - 16 [9B9450D8].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map 0:2 -scodec mov_text -map_metadata -1 "/share/Public/1561.mp4"

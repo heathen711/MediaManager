@@ -75,7 +75,7 @@ class videoClass:
                     print(self.outputFile)
                 try:
                     shutil.move(tempFile, self.outputFile)
-                    logger(self.originalVideo + " -> " + self.outputFile + '\n')
+                    history(self.originalVideo + " -> " + self.outputFile)
                     return True
                 except:
                     self.error = True
@@ -95,14 +95,14 @@ class videoClass:
             print("Audio Conversion: " + str(self.requiredConversion['audio']))
             print("Subtitle Conversion: " + str(self.requiredConversion['subtitle']))
         else:
-            print("Errors when processing info for file, skipping: " + self.videoFile)
+            history("Errors when processing info for file, skipping: " + self.videoFile)
 
         if not self.error:
             ## Check if the videoFile already exsists
             if os.path.exists(self.outputFile):
                 while True:
                     if self.config['auto']:
-                        logger(self.outputFile + " already exsists, skipping conversion.")
+                        history(self.outputFile + " already exsists, skipping conversion.")
                         choice = 'n'
                     else:
                         choice = raw_input(self.videoTitle + " exsists, would you like to overwrite it? (Y/N): ")
@@ -310,7 +310,10 @@ class videoClass:
         else:
             self.command = ""
         
-        self.command += "ffmpeg -i \"" + self.originalVideo + "\" "
+        self.command += "ffmpeg "
+        if self.config['debug']:
+            self.command += "-report "
+        self.command += "-i \"" + self.originalVideo + "\" "
 
         if self.streams['video']:
             if self.config['debug']:
@@ -331,7 +334,7 @@ class videoClass:
                             print( str(width/gcd) + ':' + str(height/gcd) )
                         print("1208x720")
 
-                    if width <= 1280 and height <= 720 and "h264" in self.streams['video'].info:
+                    if width <= 1300 and height <= 750 and "h264" in self.streams['video'].info:
                         self.command += "-vcodec copy "
                     else:
                         self.command += "-profile:v main -level 3.1 "

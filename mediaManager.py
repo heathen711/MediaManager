@@ -153,7 +153,7 @@ class MediaManager:
                                             print(self.config['failedConverts'])
                                         if curFile not in self.config['failedConverts']:
                                             self.rawTvShows.append(curFile)
-                                            logger("    Added: " + fileName + " to TV Shows Queue.")
+                                            history("    Added: " + fileName + " to TV Shows Queue.")
                                         else:
                                             print("    File was tried before and failed, skipping.")
                                         found = True
@@ -172,11 +172,11 @@ class MediaManager:
                                             choice = int(choice)
                                             if choice == 1:
                                                 self.rawMovies.append(os.path.join(path[0], fileName))
-                                                logger("    Added: " + fileName + " to Movies Queue.")
+                                                history("    Added: " + fileName + " to Movies Queue.")
                                                 break
                                             elif choice == 2:
                                                 self.rawTvShows.append(os.path.join(path[0], fileName))
-                                                logger("    Added: " + fileName + " to TV Shows Queue.")
+                                                history("    Added: " + fileName + " to TV Shows Queue.")
                                                 break
                                             elif choice == 3:
                                                 print("    Skipping...")
@@ -265,9 +265,9 @@ if __name__ == "__main__":
         'episodeRegEx': [ "([\ \.\_\-]s(\d{1,3})e(\d{1,3})[\ \.\_\-])",
                                 "([\ \.\_\-]s(\d{1,3})[\ \.\_\-]e(\d{1,3})[\ \.\_\-])",
                                 "([\ \.\_\-]s(\d{1,3})e(\d{1,3})v\d[\ \.\_\-])",
-                                "([\ \.\_\-](\d{3})[\ \.\_\-])",
+                                "([\ \.\_\-](\d{2,3})[\ \.\_\-])",
                                 "([\ \.\_\-](\d{3})v\d[\ \.\_\-])",
-                                "([\ \.\_\-](\d{1,3})x(\d{1,3})[\ \.\_\-])",
+                                "([\ \.\_\-](\d{1,2})x(\d{1,2})[\ \.\_\-])",
                                 "([\ \.\_\-]s(\d{1,3})[\.\ \_]-[\.\ \_](\d{1,3})[\ \.\_\-])",
                                 "([\ \.\_\-]-[\.\ \_](\d{1,3})[\ \.\_\-])",
                                 "([\ \.\_\-]-[\.\ \_](\d{1,3})v\d[\ \.\_\-])",
@@ -284,7 +284,7 @@ if __name__ == "__main__":
                                 
                             ],
         'tvdbAPIkey': "4E7A4FBBC8CF4D74",
-        'cachedTvShows': [ 'Castle (2009)', 'Reign (2013)', 'The Librarians (2014)'],
+        'cachedTvShows': [ 'Castle (2009)', 'Reign (2013)', 'The Librarians (2014)', "Scandal (2012)"],
         'acceptableSubtitleTypes': [
                 "subrip",
                 "srt",

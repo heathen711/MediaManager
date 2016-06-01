@@ -28,11 +28,11 @@ IMDB_Movie = collections.namedtuple("IMDB_Movie", "ID, name, year, plot", verbos
 
 streamInfo = collections.namedtuple("streamInfo", "id, lang, type, info, unsupported", verbose=False)
 
-def logger(message):
+def history(message):
     if type(message) != str:
         message = str(message)
     logger = open("history.log", 'a')
-    logger.write(message+'\n')
+    logger.write(message + '\n')
     logger.close()
     print(message)
     
@@ -40,7 +40,7 @@ def error(message):
     if type(message) != str:
         message = str(message)
     logger = open("error.log", 'a')
-    logger.write(message+'\n')
+    logger.write(message + '\n')
     logger.close()
 
 def unicodeToString(text):

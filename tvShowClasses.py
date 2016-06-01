@@ -271,6 +271,19 @@ class tvEpisode(videoClass):
                     return False
         return False
 
+    def findByEpisodeNumber(self, needle):
+        if self.ova:
+            if needle <= self.showInfo[0].keys()[-1]:
+                return (0, needle)
+            else:
+                return -1
+        else:
+            for season in self.showInfo.keys()[1:]:
+                for episode in self.showInfo[season].keys():
+                    if int(self.showInfo[season][episode]['absolute_number']) == int(needle):
+                        return (season, episode)
+            return -1
+
     def seasonEpisodeFilter(self):
         done = False
         print("\nProcessing season/episode info: " + self.videoFile)
@@ -350,25 +363,10 @@ class tvEpisode(videoClass):
                     else:
                         ## assume the number is a full sequencial count not season and Episode
                         error = False
-                        tempNumber = int(self.showNumbers[0])
-                        topSeason = len(self.seasonInfo)
-                        curSeason = 1 ## skip ova / specials in season 0
-                        while True:
-                            try:
-                                self.seasonInfo[curSeason]
-                            except:
-                                print("WARNING: Seqential number goes beyond season and episode count for: " + self.videoFile)
-                                error = True
-                                break
-                            if not error:
-                                if tempNumber <= self.seasonInfo[curSeason] and curSeason <= topSeason:
-                                    self.SeEp[0] = curSeason
-                                    self.SeEp[1] = tempNumber
-                                    break
-                                elif self.showNumbers > self.seasonInfo[curSeason] and curSeason <= topSeason:
-                                    tempNumber -= self.seasonInfo[curSeason]-1
-                                    curSeason += 1
-                        if error and not self.config['auto']:
+                        result = self.findByEpisodeNumber(self.showNumbers[0])
+                        if result != -1:
+                            self.SeEp = result
+                        elif not self.config['auto']:
                             self.askForSeEp()
         else:
             self.askForSeEp()
@@ -647,27 +645,28 @@ class tvShow:
 
         self.tvShowTitle = ' '.join(self.tvShowTitle.split())
         
-        ## Remove uploader name from beginning
-        if self.tvShowTitle[0] == '(':
-            self.tvShowTitle = self.tvShowTitle[self.tvShowTitle.find(')')+1:]
-            
-        if self.tvShowTitle[0] == '[':
-            self.tvShowTitle  = self.tvShowTitle[self.tvShowTitle.find(']')+1:]
-            
-        self.tvShowTitle = self.tvShowTitle.replace('(', "").replace(')', "")
-
-        # Use common descprtion terms to find end of tvShow title
-
-        stop = len(self.tvShowTitle)
-        for term in self.config['commonTerms']:
-            if ' ' + term.lower() + ' ' in ' ' + self.tvShowTitle + ' ':
-                place = self.tvShowTitle.find(term.lower())
-                if place < stop:
-                    stop = place
-        self.tvShowTitle = self.tvShowTitle[:stop]
-
-        if 'SeEp' in self.tvShowTitle:
-            self.tvShowTitle = self.tvShowTitle[:self.tvShowTitle.find('SeEp')]
+        if len(self.tvShowTitle) > 0:
+            ## Remove uploader name from beginning
+            if self.tvShowTitle[0] == '(':
+                self.tvShowTitle = self.tvShowTitle[self.tvShowTitle.find(')')+1:]
+                
+            if self.tvShowTitle[0] == '[':
+                self.tvShowTitle  = self.tvShowTitle[self.tvShowTitle.find(']')+1:]
+                
+            self.tvShowTitle = self.tvShowTitle.replace('(', "").replace(')', "")
+    
+            # Use common descprtion terms to find end of tvShow title
+    
+            stop = len(self.tvShowTitle)
+            for term in self.config['commonTerms']:
+                if ' ' + term.lower() + ' ' in ' ' + self.tvShowTitle + ' ':
+                    place = self.tvShowTitle.find(term.lower())
+                    if place < stop:
+                        stop = place
+            self.tvShowTitle = self.tvShowTitle[:stop]
+    
+            if 'SeEp' in self.tvShowTitle:
+                self.tvShowTitle = self.tvShowTitle[:self.tvShowTitle.find('SeEp')]
             
         # After filtering if we dont have anything else lets check the folder path, incase the file name is only the episode number but show and season are in the path.
         if len(self.tvShowTitle) <= 1 and self.checkingPath == False:
@@ -706,10 +705,11 @@ class tvShow:
             if punctuation[char] in self.tvShowTitle:
                 self.tvShowTitle = self.tvShowTitle.replace(punctuation[char], "")
         
-        if self.tvShowTitle[0] == ' ':
-            self.tvShowTitle = self.tvShowTitle[1:]
-        if self.tvShowTitle[-1] == ' ':
-            self.tvShowTitle = self.tvShowTitle[:-1]
+        if len(self.tvShowTitle) > 0:
+            if self.tvShowTitle[0] == ' ':
+                self.tvShowTitle = self.tvShowTitle[1:]
+            if self.tvShowTitle[-1] == ' ':
+                self.tvShowTitle = self.tvShowTitle[:-1]
         
         
     def isAnime(self):
@@ -743,12 +743,18 @@ class tvShow:
         self.checkingPath = False
         self.config = config
         self.error = False
+        
         if type(episodes) != list:
             self.episodes = [ episodes ]
             self.episode = episodes
         else:
             self.episodes = episodes
             self.episode = episodes[0]
+            
+        if self.config['debug']:
+            print self.episodes
+            print self.episode
+            print folder
         self.folderPath = os.path.join(self.config['watchedFolder'], folder)
         if self.config['debug']:
             print(self.folderPath)
@@ -757,7 +763,7 @@ class tvShow:
         self.showInfo = False
         self.anime = False
     
-        print("\n\nProcessing: " + self.folderPath + episodes[0])
+        print("\n\nProcessing: " + os.path.join(self.folderPath, episodes[0]))
         
         self.tvShowTitle = episodes[0].lower()
         self.nameFilter()
