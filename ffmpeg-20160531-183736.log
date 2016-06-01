@@ -1,93 +1,0 @@
-ffmpeg started on 2016-05-31 at 18:37:36
-Report written to "ffmpeg-20160531-183736.log"
-Command line:
-ffmpeg -report -i "/share/Download/Person.of.Interest.S05E10.HDTV.x264-LOL[ettv]/person.of.interest.510.hdtv-lol[ettv].mkv" -map 0:0 -vcodec copy -map 0:1 -acodec copy -map_metadata -1 /share/Public/3161.mp4
-ffmpeg version N-80117-gdac030d-static http://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2016 the FFmpeg developers
-  built with gcc 5.3.1 (Debian 5.3.1-20) 20160519
-  configuration: --enable-gpl --enable-version3 --enable-static --disable-debug --enable-libmp3lame --enable-libx264 --enable-libx265 --enable-libwebp --enable-libspeex --enable-libvorbis --enable-libvpx --enable-libfreetype --enable-fontconfig --enable-libxvid --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libtheora --enable-libvo-amrwbenc --enable-gray --enable-libopenjpeg --enable-libopus --enable-libass --enable-gnutls --enable-libvidstab --enable-libsoxr --enable-frei0r --enable-libfribidi --disable-indev=sndio --disable-outdev=sndio --enable-librtmp --enable-libmfx --enable-libzimg --cc=gcc
-  libavutil      55. 24.100 / 55. 24.100
-  libavcodec     57. 43.100 / 57. 43.100
-  libavformat    57. 37.101 / 57. 37.101
-  libavdevice    57.  0.101 / 57.  0.101
-  libavfilter     6. 46.100 /  6. 46.100
-  libswscale      4.  1.100 /  4.  1.100
-  libswresample   2.  0.101 /  2.  0.101
-  libpostproc    54.  0.100 / 54.  0.100
-Splitting the commandline.
-Reading option '-report' ... matched as option 'report' (generate a report) with argument '1'.
-Reading option '-i' ... matched as input file with argument '/share/Download/Person.of.Interest.S05E10.HDTV.x264-LOL[ettv]/person.of.interest.510.hdtv-lol[ettv].mkv'.
-Reading option '-map' ... matched as option 'map' (set input stream mapping) with argument '0:0'.
-Reading option '-vcodec' ... matched as option 'vcodec' (force video codec ('copy' to copy stream)) with argument 'copy'.
-Reading option '-map' ... matched as option 'map' (set input stream mapping) with argument '0:1'.
-Reading option '-acodec' ... matched as option 'acodec' (force audio codec ('copy' to copy stream)) with argument 'copy'.
-Reading option '-map_metadata' ... matched as option 'map_metadata' (set metadata information of outfile from infile) with argument '-1'.
-Reading option '/share/Public/3161.mp4' ... matched as output file.
-Finished splitting the commandline.
-Parsing a group of options: global .
-Applying option report (generate a report) with argument 1.
-Successfully parsed a group of options.
-Parsing a group of options: input file /share/Download/Person.of.Interest.S05E10.HDTV.x264-LOL[ettv]/person.of.interest.510.hdtv-lol[ettv].mkv.
-Successfully parsed a group of options.
-Opening an input file: /share/Download/Person.of.Interest.S05E10.HDTV.x264-LOL[ettv]/person.of.interest.510.hdtv-lol[ettv].mkv.
-[file @ 0x3cc01c0] Setting default whitelist 'file,crypto'
-[matroska,webm @ 0x3cbf9e0] Format matroska,webm probed with size=2048 and score=100
-st:0 removing common factor 1000000 from timebase
-st:1 removing common factor 1000000 from timebase
-[matroska,webm @ 0x3cbf9e0] Before avformat_find_stream_info() pos: 5561 bytes read:55002 seeks:2
-[h264 @ 0x3cc7960] nal_unit_type: 7, nal_ref_idc: 3
-[h264 @ 0x3cc7960] nal_unit_type: 8, nal_ref_idc: 3
-[h264 @ 0x3cc7960] nal_unit_type: 7, nal_ref_idc: 3
-[h264 @ 0x3cc7960] nal_unit_type: 8, nal_ref_idc: 3
-[h264 @ 0x3cc7960] user data:"x264 - core 148 r2665 a01e339 - H.264/MPEG-4 AVC codec - Copyleft 2003-2016 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x133 me=umh subme=9 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=13 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=2 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=23 scenecut=40 intra_refresh=0 rc_lookahead=60 rc=crf mbtree=1 crf=20.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00"
-[h264 @ 0x3cc7960] nal_unit_type: 6, nal_ref_idc: 0
-[h264 @ 0x3cc7960] nal_unit_type: 5, nal_ref_idc: 3
-[h264 @ 0x3cc7960] user data:"x264 - core 148 r2665 a01e339 - H.264/MPEG-4 AVC codec - Copyleft 2003-2016 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x133 me=umh subme=9 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=13 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=2 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=23 scenecut=40 intra_refresh=0 rc_lookahead=60 rc=crf mbtree=1 crf=20.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00"
-[h264 @ 0x3cc7960] no picture 
-[matroska,webm @ 0x3cbf9e0] All info found
-[matroska,webm @ 0x3cbf9e0] After avformat_find_stream_info() pos: 6637 bytes read:87770 seeks:2 frames:12
-Input #0, matroska,webm, from '/share/Download/Person.of.Interest.S05E10.HDTV.x264-LOL[ettv]/person.of.interest.510.hdtv-lol[ettv].mkv':
-  Metadata:
-    encoder         : libebml v0.7.9 + libmatroska v0.8.1
-    creation_time   : 2016-05-31 17:50:51
-  Duration: 00:43:46.33, start: 0.000000, bitrate: 892 kb/s
-    Stream #0:0(eng), 4, 1/1000: Video: h264 (High), yuv420p(tv, bt709/unknown/unknown), 720x404, SAR 1:1 DAR 180:101, 23.98 fps, 23.98 tbr, 1k tbn
-    Stream #0:1, 8, 1/1000: Audio: aac (LC), 48000 Hz, stereo, fltp (default)
-Successfully opened the file.
-Parsing a group of options: output file /share/Public/3161.mp4.
-Applying option map (set input stream mapping) with argument 0:0.
-Applying option vcodec (force video codec ('copy' to copy stream)) with argument copy.
-Applying option map (set input stream mapping) with argument 0:1.
-Applying option acodec (force audio codec ('copy' to copy stream)) with argument copy.
-Applying option map_metadata (set metadata information of outfile from infile) with argument -1.
-Successfully parsed a group of options.
-Opening an output file: /share/Public/3161.mp4.
-[file @ 0x3cde040] Setting default whitelist 'file,crypto'
-Successfully opened the file.
-[mp4 @ 0x3d01d40] Using AVStream.codec to pass codec parameters to muxers is deprecated, use AVStream.codecpar instead.
-[mp4 @ 0x3d01d40] Using AVStream.codec to pass codec parameters to muxers is deprecated, use AVStream.codecpar instead.
-Output #0, mp4, to '/share/Public/3161.mp4':
-  Metadata:
-    encoder         : Lavf57.37.101
-    Stream #0:0, 0, 1/16000: Video: h264 ([33][0][0][0] / 0x0021), yuv420p(tv, bt709/unknown/unknown), 720x404 [SAR 1:1 DAR 180:101], q=2-31, 23.98 fps, 23.98 tbr, 16k tbn
-    Stream #0:1, 0, 1/48000: Audio: aac (LC) ([64][0][0][0] / 0x0040), 48000 Hz, stereo (default)
-Stream mapping:
-  Stream #0:0 -> #0:0 (copy)
-  Stream #0:1 -> #0:1 (copy)
-Press [q] to stop, [?] for help
-cur_dts is invalid (this is harmless if it occurs once at the start per stream)
-cur_dts is invalid (this is harmless if it occurs once at the start per stream)
-cur_dts is invalid (this is harmless if it occurs once at the start per stream)
-frame= 5766 fps=0.0 q=-1.0 size=   30991kB time=00:04:00.53 bitrate=1055.5kbits/s speed= 481x    frame=11920 fps=11919 q=-1.0 size=   54163kB time=00:08:17.23 bitrate= 892.3kbits/s speed= 497x    frame=18232 fps=12154 q=-1.0 size=   76368kB time=00:12:40.53 bitrate= 822.6kbits/s speed= 507x    frame=24788 fps=12393 q=-1.0 size=   96931kB time=00:17:13.94 bitrate= 768.0kbits/s speed= 517x    frame=30959 fps=12383 q=-1.0 size=  125438kB time=00:21:31.28 bitrate= 795.8kbits/s speed= 516x    frame=36907 fps=12302 q=-1.0 size=  158072kB time=00:25:39.43 bitrate= 841.2kbits/s speed= 513x    frame=42309 fps=12087 q=-1.0 size=  199259kB time=00:29:24.84 bitrate= 924.9kbits/s speed= 504x    frame=48206 fps=12051 q=-1.0 size=  232794kB time=00:33:30.70 bitrate= 948.4kbits/s speed= 503x    frame=54719 fps=12159 q=-1.0 size=  255030kB time=00:38:02.26 bitrate= 915.4kbits/s speed= 507x    frame=61258 fps=12251 q=-1.0 size=  278313kB time=00:42:35.11 bitrate= 892.3kbits/s speed= 511x    No more output streams to write to, finishing.
-frame=62969 fps=12197 q=-1.0 Lsize=  287823kB time=00:43:46.20 bitrate= 897.8kbits/s speed= 509x    
-video:244903kB audio:40454kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.864077%
-Input file #0 (/share/Download/Person.of.Interest.S05E10.HDTV.x264-LOL[ettv]/person.of.interest.510.hdtv-lol[ettv].mkv):
-  Input stream #0:0 (video): 62969 packets read (250780902 bytes); 
-  Input stream #0:1 (audio): 123076 packets read (41425404 bytes); 
-  Total: 186045 packets (292206306 bytes) demuxed
-Output file #0 (/share/Public/3161.mp4):
-  Output stream #0:0 (video): 62969 packets muxed (250780902 bytes); 
-  Output stream #0:1 (audio): 123076 packets muxed (41425404 bytes); 
-  Total: 186045 packets (292206306 bytes) muxed
-0 frames successfully decoded, 0 decoding errors
-[AVIOContext @ 0x3d03360] Statistics: 60 seeks, 186593 writeouts
-[AVIOContext @ 0x3cc8440] Statistics: 292996646 bytes read, 3 seeks
