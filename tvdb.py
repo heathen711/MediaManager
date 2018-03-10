@@ -128,6 +128,7 @@ class TVDB:
 
     def getShowInfo(self, seriesID):
         result = False
+        rawData = False
         if self.debug:
             print "Retriving online info for series ID: " + seriesID
         path = '/series/{}/all/en.xml'.format(seriesID)
