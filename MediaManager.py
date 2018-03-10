@@ -1433,6 +1433,8 @@ class tvShow:
 				self.tvShowTitle = self.tvShowTitle[:-1]
 
 	def isAnime(self):
+		print self.showInfo.keys()
+		exit()
 		genres = self.showInfo['Genre'].split('|')
 		if 'Animation' in genres:
 			self.anime = True
