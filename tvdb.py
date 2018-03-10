@@ -136,7 +136,7 @@ class TVDB:
                 rawData = cacheReader.read()
             print "Using cached xml data."
         if not rawData:
-            rawData = getOnlineContent('http://thetvdb.com/api/' + self.apikey + )
+            rawData = getOnlineContent('http://thetvdb.com/api/{}{}'.format(self.apikey, path))
         if rawData:
             with open(os.path.join("/tmp/", path), mode="w", buffering=None) as cacheWriter:
                 cacheWriter.write(rawData)
