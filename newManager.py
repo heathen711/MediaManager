@@ -1777,7 +1777,7 @@ class MediaManager(object):
 							break
 					if not found:
 						self.rawMovies.append(os.path.join(path[0], fileName))
-						pritn "Added:", fileName, "to Movies Queue."
+						print "Added:", fileName, "to Movies Queue."
 
 	def parseFilesToCheck(self):
 		self.rawTvShows = self.collectionBuilder(self.rawTvShows, self.config['watchedFolder'])
