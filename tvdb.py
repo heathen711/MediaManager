@@ -139,7 +139,8 @@ class TVDB:
         if not rawData:
             rawData = getOnlineContent('http://thetvdb.com/api/{}{}'.format(self.apikey, path))
         if rawData:
-            os.makedirs(os.path.dirname(os.path.join("/tmp/", path)))
+            if not os.exists(os.path.dirname(os.path.join("/tmp/", path))):
+                os.makedirs(os.path.dirname(os.path.join("/tmp/", path)))
             with open(os.path.join("/tmp/", path), "wb") as cacheWriter:
                 cacheWriter.write(rawData)
             rawData = rawData.replace("&", "and")
