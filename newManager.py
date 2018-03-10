@@ -298,7 +298,7 @@ class videoClass:
 			print "Streams:", self.streams
 
 		if not self.buildCommand():
-			retrun False
+			return False
 
 		if self.forceConvert:
 			self.conversionLevel = 3
