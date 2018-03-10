@@ -2092,6 +2092,7 @@ class MediaManager:
 							if re.search(expression, " {} ".format(fileName.lower())):
 								curFile = os.path.join(path[0], fileName)
 								if self.config['debug']:
+									self.history("Matching regex: {}".format(expression))
 									self.history(curFile)
 									self.history(self.config['failedConverts'])
 								if curFile not in self.config['failedConverts']:
