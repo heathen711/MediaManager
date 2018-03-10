@@ -2185,6 +2185,8 @@ if __name__ == "__main__":
     except:
         pass
 
+	shutil.rmtree("/tmp/series/", ignore_errors=True, onerror=None)
+
     previousStamp = False
     while True:
         curStamp = os.stat(config['watchedFolder']).st_mtime
