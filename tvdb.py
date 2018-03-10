@@ -139,7 +139,7 @@ class TVDB:
         if not rawData:
             rawData = getOnlineContent('http://thetvdb.com/api/{}{}'.format(self.apikey, path))
         if rawData:
-            with open(os.path.join("/tmp/", path), mode="w", buffering=None) as cacheWriter:
+            with open(os.path.join("/tmp/", path), "wb") as cacheWriter:
                 cacheWriter.write(rawData)
             rawData = rawData.replace("&", "and")
             data = self.xmlShowToDict(rawData)
