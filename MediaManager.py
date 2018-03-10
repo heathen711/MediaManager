@@ -2082,14 +2082,14 @@ class MediaManager:
 								self.history("Current path includes an exclusion term, skipping this file.")
 								continue
 
-						fileSize = os.path.getsize(path[0]+os.sep+fileName)
+						fileSize = os.path.getsize(os.path.join(path[0], fileName))
 						if fileSize < self.config['minFileSize']:
 							self.history("File to small, skipping this file.")
 							continue
 
 						found = False
 						for expression in self.config['episodeRegEx']:
-							if re.search(expression, ' '+fileName.lower()+' '):
+							if re.search(expression, " {} ".format(fileName.lower())):
 								curFile = os.path.join(path[0], fileName)
 								if self.config['debug']:
 									self.history(curFile)
@@ -2111,6 +2111,7 @@ class MediaManager:
 									self.history("2 - TV Show")
 									self.history("3 - Skip")
 									self.history("4 - Delete")
+									self.history("5 - Exit")
 									choice = raw_input("Choice: ")
 								if choice.isdigit():
 									choice = int(choice)
@@ -2132,6 +2133,8 @@ class MediaManager:
 										except:
 											self.history("Could not delete " + fileName + ", please check permissions.")
 										break
+									elif choice == 5:
+										exit()
 									else:
 										self.history("Invalid input. Please try again.")
 								else:
