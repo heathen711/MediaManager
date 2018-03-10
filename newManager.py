@@ -1823,7 +1823,7 @@ class MediaManager(object):
 		self.config['movieHandler'] = movie
 		self.config['tvdbHandler'] = TVDB(self.config['tvdbAPIkey'], self.config['debug'])
 
-		self.config['commonTerms'] += self.config['acceptedVideoExtensions']:
+		self.config['commonTerms'] += self.config['acceptedVideoExtensions']
 
 		self.config['movies'] = []
 		self.config['tvShows'] = []
