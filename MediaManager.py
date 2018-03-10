@@ -1432,7 +1432,6 @@ class tvShow:
 			if self.tvShowTitle[-1] == ' ':
 				self.tvShowTitle = self.tvShowTitle[:-1]
 
-
 	def isAnime(self):
 		genre = getOnlineData("http://thetvdb.com/api/" + self.config['tvdbAPIkey'] + "/series/" + str(self.showInfo['id']) + "/all/", "(<Genre>(.*?)</Genre>)")
 		if genre:
