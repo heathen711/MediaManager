@@ -1736,7 +1736,7 @@ class MediaManager(object):
 
 	def getFilesToCheck(self):
 		self.filesToCheck = []
-		print "Searching folder:", self.config['watchedFolder'])
+		print "Searching folder:", self.config['watchedFolder']
 		walker = os.walk(self.config['watchedFolder'])
 		for path in walker:
 			if ".@__thumb" in path[0] or "@Recycle" in path[0]:
