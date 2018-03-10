@@ -1,13 +1,10 @@
-#!/usr/bin/python
-import re
+#!/usr/bin/env python
 import os
 import sys
-import ssl
 import urllib
-import urllib2
 import xml.etree.ElementTree as ET
-sys.path.insert(0, "../")
-import heathen711
+
+from url_functions import getOnlineContent
 
 class season():
     def keys(self):
@@ -133,8 +130,15 @@ class TVDB:
         result = False
         if self.debug:
             print "Retriving online info for series ID: " + seriesID
-        rawData = heathen711.getOnlineContent('http://thetvdb.com/api/' + self.apikey + '/series/' + seriesID + '/all/en.xml')
+        path = '/series/{}/all/en.xml'.format(seriesID)
+        if os.path.exists(os.path.join("/tmp/", path)):
+            with open(os.path.join("/tmp/", path), mode='r') as cacheReader:
+                rawData = cacheReader.read()
+        else:
+            rawData = getOnlineContent('http://thetvdb.com/api/' + self.apikey + )
         if rawData:
+            with open(os.path.join("/tmp/", path), mode="w", buffering=None) as cacheWriter:
+                cacheWriter.write(rawData)
             rawData = rawData.replace("&", "and")
             data = self.xmlShowToDict(rawData)
             if "episodes" in data.keys():
@@ -149,7 +153,7 @@ class TVDB:
             URL = "http://thetvdb.com/api/GetSeries.php?seriesname={}".format(urllib.quote_plus(showTitle))
             if self.debug:
                 print "Accessing tvdb: " + URL
-            rawData = heathen711.getOnlineContent(URL)
+            rawData = getOnlineContent(URL)
             if rawData:
                 rawData = rawData.replace("&", "and")
                 if self.debug:
