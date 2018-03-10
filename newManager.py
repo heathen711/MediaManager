@@ -1110,7 +1110,7 @@ class tvShow:
 
 			stop = len(self.tvShowTitle)
 			for term in self.config['commonTerms']:
-				if '', term.lower() + ' ' in '', self.tvShowTitle + ' ':
+				if " {} ".format(term.lower()) in " {} ".format(self.tvShowTitle):
 					place = self.tvShowTitle.find(term.lower())
 					if place < stop:
 						stop = place
