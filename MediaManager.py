@@ -1434,8 +1434,7 @@ class tvShow:
 
 	def isAnime(self):
 		print self.showInfo.keys()
-		exit()
-		genres = self.showInfo['Genre'].split('|')
+		genres = self.showInfo.get('Genre', "").split('|')
 		if 'Animation' in genres:
 			self.anime = True
 			self.history("Show is calisified as an Anime show.")

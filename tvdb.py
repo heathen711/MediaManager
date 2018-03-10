@@ -112,8 +112,6 @@ class TVDB:
         return data
 
     def xmlSeriesToDict(self, xmlString):
-        with open("last.xml", "wb") as temp:
-            temp.write(xmlString)
         tree = ET.fromstring(xmlString)
         data = []
         for item in tree:
