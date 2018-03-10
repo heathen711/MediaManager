@@ -1433,14 +1433,10 @@ class tvShow:
 				self.tvShowTitle = self.tvShowTitle[:-1]
 
 	def isAnime(self):
-		genre = getOnlineData("http://thetvdb.com/api/" + self.config['tvdbAPIkey'] + "/series/" + str(self.showInfo['id']) + "/all/", "(<Genre>(.*?)</Genre>)")
-		if genre:
-			genre = genre[1].split('|')
-			if 'Animation' in genre:
-				self.anime = True
-				self.history("Show is calisified as an Anime show.")
-			else:
-				self.anime = False
+		genres = self.showInfo['Genre'].split('|')
+		if 'Animation' in genres:
+			self.anime = True
+			self.history("Show is calisified as an Anime show.")
 		else:
 			self.anime = False
 

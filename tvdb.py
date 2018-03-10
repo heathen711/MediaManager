@@ -87,8 +87,6 @@ class TVDB:
         return sortedEpisodes
 
     def xmlShowToDict(self, xmlString):
-        with open("last.xml", "wb") as temp:
-            temp.write(xmlString)
         try:
             tree = ET.fromstring(xmlString)
         except Exception as error:
