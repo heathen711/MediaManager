@@ -134,7 +134,8 @@ class TVDB:
         if os.path.exists(os.path.join("/tmp/", path)):
             with open(os.path.join("/tmp/", path), mode='r') as cacheReader:
                 rawData = cacheReader.read()
-        else:
+            print "Using cached xml data."
+        if not rawData:
             rawData = getOnlineContent('http://thetvdb.com/api/' + self.apikey + )
         if rawData:
             with open(os.path.join("/tmp/", path), mode="w", buffering=None) as cacheWriter:
