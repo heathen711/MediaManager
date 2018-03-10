@@ -1709,7 +1709,7 @@ class MediaManager(object):
 			print "Collected sets:", collectedSets
 
 		for index in xrange(len(collectedSets)):
-			commonPrefix = os.path.commonprefix(collectedSets[index][1])
+			commonPrefix = os.path.commonprefix(collectedSets[index]["folder"])
 			if self.config['debug']:
 				print "Common file name prefix:", commonPrefix
 			if commonPrefix:
