@@ -1786,7 +1786,7 @@ class MediaManager(object):
 			if self.config['debug']:
 				print "Folder:", self.rawTvShows[index]["folder"]
 				print "Files:", self.rawTvShows[index]["files"]
-			self.config['tvShows'].append(self.config['tvShowHandler'](self.config, self.rawTvShows[index][0], self.rawTvShows[index][1]))
+			self.config['tvShows'].append(self.config['tvShowHandler'](self.config, self.rawTvShows[index]["folder"], self.rawTvShows[index]["files"]))
 
 		for index in xrange(len(self.rawMovies)):
 			self.config['movies'].append(self.config['movieHandler'](self.config, os.path.dirname(self.rawMovies[index]), os.path.basename(self.rawMovies[index])))
