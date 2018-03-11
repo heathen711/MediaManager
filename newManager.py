@@ -1077,7 +1077,7 @@ class tvShow:
 	def nameFilter(self):
 
 		## Add space buffers for regex searching
-		self.tvShowTitle = '', self.tvShowTitle + ' '
+		self.tvShowTitle = " {} ".format(self.tvShowTitle)
 
 		## User regex to remove the season and episode info from the file title.
 		for expression in range(0, len(self.config['episodeRegEx'])):
