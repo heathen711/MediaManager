@@ -1317,14 +1317,15 @@ class MediaManager(object):
 							curFile = os.path.join(path[0], fileName)
 							if curFile not in self.config['failedConverts']:
 								self.rawTvShows.append(curFile)
-								print "Added:", fileName, "to TV Shows Queue."
+								print "Added:", curFile, "to TV Shows Queue."
 							else:
 								print "File was tried before and failed, skipping."
 							found = True
 							break
 					if not found:
-						self.rawMovies.append(os.path.join(path[0], fileName))
-						print "Added:", fileName, "to Movies Queue."
+						curFile = os.path.join(path[0], fileName)
+						self.rawMovies.append(curFile)
+						print "Added:", curFile, "to Movies Queue."
 
 	def parseFilesToCheck(self):
 		self.rawTvShows = self.collectionBuilder(self.rawTvShows, self.config['watchedFolder'])
