@@ -404,7 +404,6 @@ class videoClass:
 		self.videoFile = videoFile
 		self.manualOverRide = False
 		self.originalVideo = os.path.join(self.videoPath, self.videoFile)
-		self.error = False
 		self.forceConvert = False
 
 		## ffprobe video for info
@@ -412,9 +411,9 @@ class videoClass:
 		if self.config['mode']:
 			if self.conversionLevel > self.config['mode']:
 				print "Conversion level is higher then mode, video will not be converted."
-				self.error = True
 				return False
 		self.checkForSubFiles()
+		return True
 
 class tvEpisode(videoClass):
 	def __init__(self, config, videoPath, videoFile, selectedTvShow, anime):
@@ -443,8 +442,7 @@ class tvEpisode(videoClass):
 					if item.isdigit():
 						self.showNumbers.append(int(item))
 					else:
-						print "Error: regex groupings '()' should only be digits."
-						self.error = True
+						raise Exception("Regex groupings '()' should only be digits.")
 				break
 		if len(self.showNumbers) == 0:
 			result = re.search("((\d\d)(\d\d))" , self.videoFile.lower() )
@@ -453,249 +451,51 @@ class tvEpisode(videoClass):
 					if item.isdigit():
 						self.showNumbers.append(int(item))
 					else:
-						print "Error: regex groupings '()' should only be digits."
-						self.error = True
+						raise Exception("Error: regex groupings '()' should only be digits.")
+
 		if self.config['debug']:
-			print "Got regex episode info."
-			print self.showNumbers
-			print self.error
+			print "Got regex episode info:", self.showNumbers
 
-		if not self.error:
-			self.seasonEpisodeFilter()
-			if self.config['debug']:
-				print "Finished episode filter."
-				print "Result:" + str(self.SeEp)
+		self.seasonEpisodeFilter()
+		if self.config['debug']:
+			print "Finished episode filter."
+			print "Result:" + str(self.SeEp)
 
-		if not self.error:
-			self.getConfirmation(True) ##auto mode??
-			if self.config['debug']:
-				print "Got confirmation."
+		self.getConfirmation(True) ##auto mode??
+		if self.config['debug']:
+			print "Got confirmation."
 
-		if not self.error:
-			if self.manualOverRide:
-				self.outputFileName = self.showInfo['SeriesName'] + " - S" + str(self.SeEp[0]).zfill(2) + "E" + str(self.SeEp[1]).zfill(2) + '.mp4'
-			else:
-				self.outputFileName = self.showInfo['SeriesName'] + " - S" + str(self.SeEp[0]).zfill(2) + "E" + str(self.SeEp[1]).zfill(2) + ' -', self.tvShowEpisodeInfo['EpisodeName'] + '.mp4'
-
-			self.outputFileName = checkFileName(self.outputFileName)
-			if self.anime:
-				self.outputFile = self.config['animeShowFolder']
-			else:
-				self.outputFile = self.config['tvShowsFolder']
-			self.outputFile += checkFileName(self.showInfo['SeriesName']) + os.sep + "Season", str(self.SeEp[0]).zfill(2) + os.sep
-			self.destination = self.outputFile
-			self.outputFile += self.outputFileName
-			self.outputFile = checkPath(self.outputFile)
-
-			self.videoTitle = self.outputFileName
-
-	def history(self, message):
-		if self.config['service'] == False:
-			print message
-		elif self.config['debug'] == True:
-			print message
-		logger(message)
-
-	def printOut(self):
-		if not self.error:
-			return self.videoFile + " ->", self.showInfo['SeriesName'] + " S" + str(self.SeEp[0]).zfill(2) + "E" + str(self.SeEp[1]).zfill(2)
-		else:
-			return self.videoFile + " -> Error"
-
-	def summary(self):
 		if self.manualOverRide:
-			self.error = False
-			print self.showInfo['SeriesName'] + " Season", str(self.SeEp[0]) + " Episode", str(self.SeEp[1])
-			return "No description avaliable due to manual override."
+			self.outputFileName = "{} - S{:02}E{:02}.mp4".format(self.showInfo['SeriesName'], self.SeEp[0], self.SeEp[1])
+		else:
+			self.outputFileName = "{} - S{:02}E{:02} - {}.mp4".format(self.showInfo['SeriesName'], self.SeEp[0], self.SeEp[1], self.tvShowEpisodeInfo['EpisodeName'])
+
+		self.outputFileName = checkFileName(self.outputFileName)
+		if self.anime:
+			self.outputFile = self.config['animeShowFolder']
+		else:
+			self.outputFile = self.config['tvShowsFolder']
+		self.outputFile += os.path.join(checkFileName(self.showInfo['SeriesName']), "Season {:02}".format(self.SeEp[0]))
+		self.destination = self.outputFile
+		self.outputFile = checkPath(os.path.join(self.outputFile, self.outputFileName))
+
+		self.videoTitle = self.outputFileName
+
+	def check(self):
+		if self.manualOverRide:
+			return True
 
 		try:
 			self.tvShowEpisodeInfo = self.showInfo[self.SeEp[0]][self.SeEp[1]]
-		except:
+		except Exception as error:
+			print "Failed to find season/episode info with error:", error
 			return False
 
 		if not self.tvShowEpisodeInfo:
 			if self.config['debug']:
 				print "Error retringing show info."
 			return False
-		description = ""
-
-		if self.config['debug']:
-			print self.showInfo.keys()
-
-		if "SeriesName" in self.showInfo.showKeys():
-			description += unicodeToString(self.showInfo["SeriesName"])
-		if "FirstAired" in self.showInfo.showKeys():
-			description += " -", str(self.showInfo["FirstAired"]).split('-')[0]
-		description += " - Season", str(self.SeEp[0]).zfill(2) + " Episode", str(self.SeEp[1]).zfill(2)
-		if "Network" in self.showInfo.keys():
-			description += " -", str(self.showInfo["Network"])
-		if "Overview" in self.tvShowEpisodeInfo.keys():
-			try:
-				description += " -", unicodeToString(self.tvShowEpisodeInfo["Overview"])
-			except:
-				description += " - No overview listed."
-
-		return description
-
-	def setSeason(self, newSeason = False):
-		self.manualOverRide = False
-		exit = False
-		while True:
-			if exit:
-				break
-			if newSeason and self.config['auto']:
-				choice = str(newSeason)
-			elif not newSeason and self.config['auto']:
-				return False
-			elif not newSeason:
-				print "This show has", str(len(self.seasonInfo)) + " seasons: 0 -", str(len(self.seasonInfo)-1)
-				choice = raw_input("Enter in new season number: (Previous =", str(self.SeEp[0]) + "): ")
-			else:
-				choice = str(newSeason)
-
-			if len(choice) > 0:
-				if choice.isdigit():
-					choice = int(choice)
-					if choice >= 0 and choice < len(self.seasonInfo):
-						self.SeEp[0] = choice
-						break
-					elif choice >= len(self.seasonInfo):
-						while True:
-							if newSeason:
-								confirm = 'y'
-							else:
-								confirm = raw_input(str(choice) + " is greater then the series has, do you wish to allow this anyway? (Y/N): ")
-							if confirm.lower() == 'y':
-								self.manualOverRide = True
-								self.SeEp[0] = choice
-								exit = True
-								break
-							elif confirm.lower() == 'n':
-								break
-							else:
-								print "Invalid input. Please try again."
-					else:
-						print "Invalid season number, there are only", str(len(self.seasonInfo)) + " seasons listed."
-				else:
-					print "Invalid input. Please try again."
-			else:
-				if self.SeEp[0] >= len(self.seasonInfo):
-					while True:
-						confirm = raw_input(str(self.SeEp[0]) + " was auto detected and is greater then the series has, do you wish to allow this anyway? (Y/N): ")
-						if confirm.lower() == 'y':
-							self.manualOverRide = True
-							exit = True
-							break
-						elif confirm.lower() == 'n':
-							break
-						else:
-							print "Invalid input. Please try again."
-				else:
-					exit = True
-
-	def setEpisode(self, newEpisode = False):
-		exit = False
-		while True:
-			if exit:
-				break
-			if not self.manualOverRide:
-				if newEpisode and self.config['auto']:
-					choice = str(newEpisode)
-				elif not newEpisode and self.config['auto']:
-					return False
-				elif not newEpisode:
-					print "Season", str(self.SeEp[0]) + " contains", str(self.seasonInfo[self.SeEp[0]]) + " episodes."
-					choice = raw_input("Enter in new episode number: (Previous =", str(self.SeEp[1]) + "): ")
-				else:
-					choice = str(newEpisode)
-				if len(choice) > 0:
-					if choice.isdigit():
-						choice = int(choice)
-						if choice >= 0 and choice <= self.seasonInfo[self.SeEp[0]]:
-							self.SeEp[1] = choice
-							exit = True
-						elif choice > self.seasonInfo[self.SeEp[0]]:
-							while True:
-								if newEpisode:
-									confirm = 'y'
-								else:
-									confirm = raw_input(str(choice) + " is greater then the season has, do you wish to allow this anyway? (Y/N): ")
-								if confirm.lower() == 'y':
-									self.manualOverRide = True
-									self.SeEp[1] = choice
-									exit = True
-									break
-								elif confirm.lower() == 'n':
-									break
-								else:
-									print "Invalid input. Please try again."
-						else:
-							print "Invalid episode number, there are only", str(self.seasonInfo[self.SeEp[0]]) + " episodes listed."
-					else:
-						print "Invalid input. Please try again."
-				else:
-					if self.SeEp[1] > self.seasonInfo[self.SeEp[0]]:
-						while True:
-							confirm = raw_input(str(self.SeEp[1]) + " was auto detected and is greater then the season has, do you wish to allow this anyway? (Y/N): ")
-							if confirm.lower() == 'y':
-								self.manualOverRide = True
-								exit = True
-								break
-							elif confirm.lower() == 'n':
-								break
-							else:
-								print "Invalid input. Please try again."
-					else:
-						exit = True
-			else:
-				while True:
-					choice = raw_input("Enter in new episode number: (Previous =", str(self.SeEp[1]) + "): ")
-					if len(choice) > 0:
-						if choice.isdigit():
-							self.SeEp[1] = int(choice)
-							exit = True
-							break
-						else:
-							print "Invalid input. Please try again."
-					else:
-						print "Invalid input. Please try again."
-
-	def askForSeEp(self):
-		self.manualOverRide = False
-		self.setSeason()
-		self.setEpisode()
-
-	def getConfirmation(self, assume = False):
-		while True:
-			summary = self.summary()
-			if summary == False:
-				if self.config['auto'] == False:
-					self.askForSeEp()
-				else:
-					self.error = True
-					return False
-			else:
-				if not self.config['auto']:
-					print summary
-				if assume:
-					return False
-				if not self.config['auto']:
-					print "1 - Use this information."
-					print "2 - Change season and episode information"
-					done = raw_input("Choice: ")
-					if done.isdigit():
-						done = int(done)
-						if done == 1:
-							return False
-						elif done == 2:
-							self.askForSeEp()
-						else:
-							print "Invalid choice. Please Try again."
-					else:
-						print "Invalid input. Please try again."
-				else:
-					return False
-		return False
+		return True
 
 	def findByEpisodeNumber(self, needle):
 		if self.ova:
@@ -715,13 +515,7 @@ class tvEpisode(videoClass):
 	def seasonEpisodeFilter(self):
 		done = False
 		print "\nProcessing season/episode info:", self.videoFile
-		if self.error:
-			print "Erroring out..."
-			return False
 		self.seasonInfo = []
-		# if type(self.showInfo) is not dict:
-		#     print "Erroring out, showInfo is not a dict:" + str(self.showInfo)
-		#     return False
 		bottomSeason = self.showInfo.keys()[0]
 		topSeason = self.showInfo.keys()[-1]
 		if bottomSeason != 0:
@@ -731,21 +525,19 @@ class tvEpisode(videoClass):
 			self.seasonInfo.append(self.showInfo[entry].keys()[-1])
 
 		self.SeEp = [ '', '' ]
-		print "Inited to:" + str(self.SeEp)
-		print "Checking:" + str(self.showNumbers)
+		print "Inited to:", self.SeEp
+		print "Checking:", self.showNumbers
 		slot = -1
 		seasonWasInPath = False
 
 		if len(self.showNumbers) > 0 and self.ova:
 			self.SeEp[0] = 0
 			self.SeEp[1] = self.showNumbers[0]
-			print "It's an ova?"
 		elif len(self.showNumbers) > 0:
 			print "Length of showNumbers:" + str(len(self.showNumbers))
 			if len(self.showNumbers) == 2:
 				self.SeEp[0] = self.showNumbers[0]
 				self.SeEp[1] = self.showNumbers[1]
-				print "Not here?"
 			elif len(self.showNumbers) == 1:
 				found = False
 				topEpisode = 0
@@ -791,11 +583,9 @@ class tvEpisode(videoClass):
 						if len(str(self.showNumbers[0])) == 3:
 							self.SeEp[0] = int(str(self.showNumbers[0])[0])
 							self.SeEp[1] = int(str(self.showNumbers[0])[1:])
-							print "Here?"
 						else:
 							self.SeEp[0] = 1
 							self.SeEp[1] = self.showNumbers[0]
-							print "Here instead?"
 						found = self.summary()
 						if found != False:
 							found = True
@@ -808,21 +598,9 @@ class tvEpisode(videoClass):
 							print "FindByEpisodeNumber Result:", str(result)
 						if result != -1:
 							self.SeEp = result
-						elif not self.config['auto']:
-							self.askForSeEp()
-			else:
-				self.askForSeEp()
-		else:
-			self.askForSeEp()
+		raise Exception("Failed to find Season/Episode information.")
 
 class tvShow:
-	def history(self, message):
-		if self.config['service'] == False:
-			print message
-		elif self.config['debug'] == True:
-			print message
-		logger(message)
-
 	def getShowConfirmation(self, assume = False):
 		if assume and self.config['auto']:
 			summary = self.summary()
@@ -1125,8 +903,7 @@ class tvShow:
 			if self.config['watchedFolder'] in self.folderPath:
 				tempFolderPath = tempFolderPath.replace(self.config['watchedFolder'], '')
 			else:
-				self.error = True
-				print "Error in removing original path from file path for processing. Error in path/linking."
+				raise Exception("Error in removing original path from file path for processing. Error in path/linking.")
 			tempFolderPath = tempFolderPath.replace(os.sep, ' ')
 			self.tvShowTitle = tempFolderPath
 			self.checkingPath = True
@@ -1189,9 +966,8 @@ class tvShow:
 		self.selectedTvShow = False
 		self.checkingPath = False
 		self.config = config
-		self.error = False
 
-		if type(episodes) != list:
+		if isinstance(episodes, list):
 			self.episodes = [ episodes ]
 			self.episode = episodes
 		else:
@@ -1202,9 +978,11 @@ class tvShow:
 			print self.episodes
 			print self.episode
 			print folder
+
 		self.folderPath = os.path.join(self.config['watchedFolder'], folder)
 		if self.config['debug']:
 			print self.folderPath
+
 		self.manualOverride = False
 		self.SeEp = [ 1, 1 ]
 		self.showInfo = False
@@ -1328,13 +1106,6 @@ class movie(videoClass):
 		else:
 			print "Error in online info, not moving the file."
 
-	def history(self, message):
-		if self.config['service'] == False:
-			print message
-		elif self.config['debug'] == True:
-			print message
-		logger(message)
-
 	def generateSummary(self):
 		self.summary = ""
 
@@ -1361,29 +1132,7 @@ class movie(videoClass):
 		self.curMovie = curMovie
 		print "Retriving information from IMDb..."
 		self.movieInfo = self.imdbMovieInfo(self.curMovie.ID)
-		if self.movieInfo:
-			self.generateSummary()
-			print self.summary
-
-			if assume and self.config['auto']:
-				return True
-			else:
-				while True:
-					print "1 - Use this information."
-					print "2 - Back"
-					done = raw_input("Choice: ")
-					if done.isdigit():
-						done = int(done)
-						if done == 1:
-							return True
-						elif done == 2:
-							self.clearShowInfo()
-							return False
-						else:
-							print "Invalid choice. Please Try again."
-					else:
-						print "Invalid input. Please try again."
-		else:
+		if not self.movieInfo:
 			self.error = True
 
 	def nameFilter(self):
