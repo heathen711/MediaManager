@@ -672,185 +672,79 @@ class tvShow:
 		return description
 
 	def lookup(self):
-		if not self.error:
-			## Check deduced title against previous cached show results.
-			for entry in self.config['cachedTvShows']:
-				if '(' in entry:
-					match = SM(None, self.tvShowTitle.lower(), entry.lower()).ratio()
-					tempEntry = entry[:entry.rfind('(')-1]
-					match2 = SM(None, self.tvShowTitle.lower(), tempEntry.lower()).ratio()
-					if match2 > match:
-						match = match2
-				else:
-					match = SM(None, self.tvShowTitle.lower(), entry.lower()).ratio()
-				if match > 0.90:
-					self.tvShowTitle = entry
-					break
-
-			results = self.config['tvdbHandler'].search(self.tvShowTitle)
-			if results:
-				if len(results) > 0:
-					firstTitle = results[0]["SeriesName"]
-
-					## Necessary??
-					if firstTitle[0] == ' ':
-						firstTitle = firstTitle[1:]
-					if firstTitle[-1] == ' ':
-						firstTitle = firstTitle[:-1]
-					## END
-
-					## TVdb disallows some tv broadcasted shows that no not count as tv series.
-					if firstTitle == '** 403: Series Not Permitted **':
-						if not self.config['auto']:
-							while True:
-								print "Error, this file may be a TV Show but is not allowed on TVDB."
-								print "May need to try this as a movie to use IMDb information."
-								print "Would you like to try IMDb or skip?"
-								print "1 - Try IMDb"
-								print "2 - Skip"
-								choice = raw_input("Choice: ")
-								if len(choice) > 0:
-									if choice.isdigit():
-										choice = int(choice)
-										if choice == 1:
-											## add in handler for error movies
-											self.config['movies'].append(self.config['movieHandler'](self.config, self.folderPath, self.episode))
-											self.error = True
-											if self.config['debug']:
-												print "Error, show is actually a movie and will not be processed as a show."
-											break
-										elif choice == 2:
-											self.error = True
-											if self.config['debug']:
-												print "Error, skipping this file."
-											break
-										else:
-											print "Invalid choice. Please try again."
-									else:
-										print "Invalid input. Please try again."
-								else:
-									print "Invalid input. Please try again."
-						else:
-							self.error = True
-							if self.config['debug']:
-								print "Error, auto mode does not handle mis-identified files. Skipping."
-					else:
-						## Filter first result and compare looking for a >90% match
-						punctuation = string.punctuation.replace('(','').replace(')','')
-						for char in range(0,len(punctuation)):
-							if punctuation[char] in firstTitle:
-								firstTitle = firstTitle.replace(punctuation[char], "")
-						checkOthers = True
-						if self.config['debug']:
-							print self.tvShowTitle.lower()
-							print firstTitle.lower()
-						match = SM(None, self.tvShowTitle.lower(), firstTitle.lower()).ratio()
-						print "First result has a", "{0:.0f}%".format(match*100) + " match."
-						if (match > .90) or (len(results) == 1):
-							self.showInfo = results[0]
-							found = self.getShowConfirmation(True)
-							if found:
-								if firstTitle not in self.config['cachedTvShows']:
-									self.config['cachedTvShows'].append(firstTitle)
-								checkOthers = False
-							else:
-								self.showInfo = False
-						if checkOthers and not self.config['auto']:
-							## Prompt user for a selection in manual mode as first did not match >90%
-							print "\n\nMake a selection for:", self.episode
-							print "From:", self.folderPath
-							while True:
-								slot = 0
-								for result in results:
-									keys = result.keys()
-									slot += 1
-									display = str(slot).zfill(2) + " - "
-									if "SeriesName" in keys:
-										display += result["SeriesName"]
-									else:
-										print "Error, something went wrong in retrieving information from TVdb as we are missing title information."
-										self.error = True
-									if "firstaired" in keys:
-										display += " (" + str(result["firstaired"]) + ")"
-									print display
-								if not self.error:
-									highChoice = slot
-									slot += 1
-									print str(slot).zfill(2) + " - New Search"
-									slot += 1
-									print str(slot).zfill(2) + " - Actually a Movie"
-									slot += 1
-									print str(slot).zfill(2) + " - Exit"
-									choice = raw_input("Enter in number associated with tvShow for more info: ")
-									if choice.isdigit():
-										choice = int(choice)
-										if choice > 0 and choice <= highChoice:
-											choice -= 1
-											self.showInfo = results[choice]
-											found = self.getShowConfirmation()
-											if found:
-												if results[choice]['SeriesName'] not in self.config['cachedTvShows']:
-													self.config['cachedTvShows'].append(results[choice]['SeriesName'])
-												break
-										elif choice == slot-2:
-											while True:
-												userInput = raw_input("Enter in title to search: ")
-												if len(userInput) > 0:
-													self.tvShowTitle = userInput
-													self.lookup()
-													break
-												else:
-													print "Invalid input. Please try again."
-											break
-										elif choice == slot-1:
-											self.error = True
-											self.config['movies'].append(self.config['movieHandler'](self.config, self.folderPath, self.episode))
-										elif choice == slot:
-											self.error = True
-											break
-										else:
-											print "Invalid choice. Please try again."
-									else:
-										print "Invalid input. Please try again."
-								else:
-									break
-						elif checkOthers and self.config['auto']:
-							self.error = True
-							if self.config['debug']:
-								print "Error, auto mode and a >90% match was not made."
+		## Check deduced title against previous cached show results.
+		for entry in self.config['cachedTvShows']:
+			if '(' in entry:
+				match = SM(None, self.tvShowTitle.lower(), entry.lower()).ratio()
+				tempEntry = entry[:entry.rfind('(')-1]
+				match2 = SM(None, self.tvShowTitle.lower(), tempEntry.lower()).ratio()
+				if match2 > match:
+					match = match2
 			else:
-				## Step through remaining words and search online until we get some results.
-				foundName = False
-				tempTvShowTitle = self.tvShowTitle.lower().split()
-				for index in range(len(tempTvShowTitle), 0, -1):
-					try:
-						results = self.config['tvdbHandler'].search(' '.join(tempTvShowTitle[:index]))
-					except:
-						print "Error communicating with the tvdb. Please check your connection or try again later."
-						self.error = True
-					if results:
-						if len(results) > 0 :
-							self.tvShowTitle = ' '.join(tempTvShowTitle[:index])
-							foundName = True
-							break
-				if not foundName:
-					print "\n\nEpisode:", self.episode
-					print "From:", self.folderPath
-					print "No results for", self.tvShowTitle
-					if self.config['auto']:
-						self.error = True
-						print "Unable to find a close match to title."
+				match = SM(None, self.tvShowTitle.lower(), entry.lower()).ratio()
+			if match > 0.90:
+				self.tvShowTitle = entry
+				break
+
+		results = self.config['tvdbHandler'].search(self.tvShowTitle)
+		if results:
+			firstTitle = results[0]["SeriesName"]
+
+			## Necessary??
+			if firstTitle[0] == ' ':
+				firstTitle = firstTitle[1:]
+			if firstTitle[-1] == ' ':
+				firstTitle = firstTitle[:-1]
+			## END
+
+			## TVdb disallows some tv broadcasted shows that no not count as tv series.
+			if firstTitle == '** 403: Series Not Permitted **':
+				self.config['movies'].append(self.config['movieHandler'](self.config, self.folderPath, self.episode))
+				return False
+			else:
+				## Filter first result and compare looking for a >90% match
+				punctuation = string.punctuation.replace('(','').replace(')','')
+				for char in range(0,len(punctuation)):
+					if punctuation[char] in firstTitle:
+						firstTitle = firstTitle.replace(punctuation[char], "")
+				checkOthers = True
+				if self.config['debug']:
+					print self.tvShowTitle.lower()
+					print firstTitle.lower()
+				match = SM(None, self.tvShowTitle.lower(), firstTitle.lower()).ratio()
+				print "First result has a", "{0:.0f}%".format(match*100) + " match."
+				if (match > .90) or (len(results) == 1):
+					self.showInfo = results[0]
+					found = self.getShowConfirmation(True)
+					if found:
+						if firstTitle not in self.config['cachedTvShows']:
+							self.config['cachedTvShows'].append(firstTitle)
+						checkOthers = False
 					else:
-						while True:
-							userInput = raw_input("Enter in title to search: ")
-							if len(userInput) > 0:
-								self.tvShowTitle = userInput
-								self.lookup()
-								break
-							else:
-								print "Invalid input. Please try again."
+						self.showInfo = False
 				else:
-					self.lookup()
+					raise Exception("Failed to find a >90% match.")
+		else:
+			## Step through remaining words and search online until we get some results.
+			foundName = False
+			tempTvShowTitle = self.tvShowTitle.lower().split()
+			for index in range(len(tempTvShowTitle), 0, -1):
+				try:
+					results = self.config['tvdbHandler'].search(' '.join(tempTvShowTitle[:index]))
+				except:
+					raise Exception("Error communicating with the tvdb. Please check your connection or try again later.")
+				if results:
+					if len(results) > 0 :
+						self.tvShowTitle = ' '.join(tempTvShowTitle[:index])
+						foundName = True
+						break
+			if not foundName:
+				print "\n\nEpisode:", self.episode
+				print "From:", self.folderPath
+				print "No results for", self.tvShowTitle
+				raise Exception(print "Unable to find a close match to title.")
+			else:
+				self.lookup()
 
 	def nameFilter(self):
 
