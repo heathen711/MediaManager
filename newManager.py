@@ -1216,7 +1216,7 @@ class movie(videoClass):
 class MediaManager(object):
 	def collectionBuilder(self, data, basePath):
 		for index in xrange(len(data)):
-			data[index] = data[index].replace(basePath, os.sep)
+			data[index] = data[index].replace(basePath, "")
 
 		data.sort(reverse=True)
 
