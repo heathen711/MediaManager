@@ -742,7 +742,7 @@ class tvShow:
 				print "\n\nEpisode:", self.episode
 				print "From:", self.folderPath
 				print "No results for", self.tvShowTitle
-				raise Exception(print "Unable to find a close match to title.")
+				raise Exception("Unable to find a close match to title.")
 			else:
 				self.lookup()
 
