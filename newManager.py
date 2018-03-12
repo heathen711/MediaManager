@@ -298,8 +298,7 @@ class videoClass:
 		if self.config['debug']:
 			print "Streams:", self.streams
 
-		if not self.buildCommand():
-			return False
+		self.buildCommand()
 
 		if self.forceConvert:
 			self.conversionLevel = 3
