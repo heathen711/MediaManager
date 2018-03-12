@@ -402,7 +402,6 @@ class videoClass:
 		if self.videoPath[-1] != os.sep:
 			self.videoPath = self.videoPath + os.sep
 		self.videoFile = videoFile
-		self.manualOverRide = False
 		print self.videoPath
 		print self.videoFile
 		self.originalVideo = os.path.join(self.videoPath, self.videoFile)
@@ -463,14 +462,7 @@ class tvEpisode(videoClass):
 			print "Finished episode filter."
 			print "Result:" + str(self.SeEp)
 
-		self.getConfirmation(True) ##auto mode??
-		if self.config['debug']:
-			print "Got confirmation."
-
-		if self.manualOverRide:
-			self.outputFileName = "{} - S{:02}E{:02}.mp4".format(self.showInfo['SeriesName'], self.SeEp[0], self.SeEp[1])
-		else:
-			self.outputFileName = "{} - S{:02}E{:02} - {}.mp4".format(self.showInfo['SeriesName'], self.SeEp[0], self.SeEp[1], self.tvShowEpisodeInfo['EpisodeName'])
+		self.outputFileName = "{} - S{:02}E{:02} - {}.mp4".format(self.showInfo['SeriesName'], self.SeEp[0], self.SeEp[1], self.tvShowEpisodeInfo['EpisodeName'])
 
 		self.outputFileName = checkFileName(self.outputFileName)
 		if self.anime:
@@ -484,9 +476,6 @@ class tvEpisode(videoClass):
 		self.videoTitle = self.outputFileName
 
 	def check(self):
-		if self.manualOverRide:
-			return True
-
 		try:
 			self.tvShowEpisodeInfo = self.showInfo[self.SeEp[0]][self.SeEp[1]]
 		except Exception as error:
@@ -593,10 +582,6 @@ class tvShow:
 		return False
 
 	def summary(self):
-		if self.manualOverride:
-			self.error = False
-			print self.showInfo['SeriesName'] + " Season", str(self.SeEp[0]) + " Episode", str(self.SeEp[1])
-			return "No description avaliable due to manual override."
 		if self.config['debug']:
 			print self.showInfo['SeriesName']
 			print self.SeEp
@@ -837,7 +822,6 @@ class tvShow:
 		if self.config['debug']:
 			print self.folderPath
 
-		self.manualOverride = False
 		self.SeEp = [ 1, 1 ]
 		self.showInfo = False
 		self.anime = False
@@ -871,12 +855,10 @@ class movie(videoClass):
 
 		if not self.error:
 			## Use confirmed movie info for destination and title
-			if not self.manualOverRide:
-				self.movieTitle = checkPath(self.movieInfo.name)
-				if len(self.movieInfo.year) > 0:
-					self.movieTitle += ' (' + str(self.movieInfo.year) + ')'
-			else:
-				self.movieTitle = self.videoTitle
+			self.movieTitle = checkPath(self.movieInfo.name)
+			if len(self.movieInfo.year) > 0:
+				self.movieTitle += ' (' + str(self.movieInfo.year) + ')'
+
 			self.movieTitle += ".mp4"
 			self.movieTitle = unicodeToString(checkFileName(self.movieTitle))
 
