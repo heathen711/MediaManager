@@ -838,7 +838,7 @@ class tvShow:
 		self.checkingPath = False
 		self.config = config
 
-		if isinstance(episodes, list):
+		if not isinstance(episodes, list):
 			self.episodes = [ episodes ]
 			self.episode = episodes
 		else:
