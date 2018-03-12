@@ -881,14 +881,14 @@ class tvShow:
 		if "SeriesName" in self.showInfo.keys():
 			description += self.showInfo["SeriesName"]
 		if "FirstAired" in self.showInfo.keys():
-			description += " -", str(self.showInfo["FirstAired"]).split('-')[0]
-		description += " - Season", str(self.SeEp[0]).zfill(2) + " Episode", str(self.SeEp[1]).zfill(2)
+			description += " - {}".format(str(self.showInfo["FirstAired"]).split('-')[0])
+		description += " - Season {:02} Episode {:02}".format(self.SeEp[0], self.SeEp[1])
 		if "Network" in self.showInfo.keys():
-			description += " -", str(self.showInfo["Network"])
+			description += " - {}".format(self.showInfo["Network"])
 
 		if "Overview" in self.tvShowEpisodeInfo.keys():
 			try:
-				description += " -", self.tvShowEpisodeInfo["Overview"]
+				description += " - {}".format(self.tvShowEpisodeInfo["Overview"])
 			except:
 				description += " - No overview listed."
 		return description
