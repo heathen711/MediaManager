@@ -504,7 +504,7 @@ class tvEpisode(videoClass):
 			if needle <= self.showInfo[0].keys()[-1]:
 				return [0, needle]
 			else:
-				return -1
+				return False
 		else:
 			for season in self.showInfo.keys():
 				for episode in self.showInfo[season].keys():
@@ -512,10 +512,9 @@ class tvEpisode(videoClass):
 						if len(self.showInfo[season][episode]['absolute_number']) > 0:
 							if int(self.showInfo[season][episode]['absolute_number']) == int(needle):
 								return [season, episode]
-			return -1
+			return False
 
 	def seasonEpisodeFilter(self):
-		done = False
 		print "\nProcessing season/episode info:", self.videoFile
 		self.seasonInfo = []
 		bottomSeason = self.showInfo.keys()[0]
@@ -536,70 +535,54 @@ class tvEpisode(videoClass):
 			self.SeEp[0] = 0
 			self.SeEp[1] = self.showNumbers[0]
 		elif len(self.showNumbers) > 0:
-			print "Length of showNumbers:" + str(len(self.showNumbers))
+			print "Length of showNumbers:", len(self.showNumbers)
 			if len(self.showNumbers) == 2:
 				self.SeEp[0] = self.showNumbers[0]
 				self.SeEp[1] = self.showNumbers[1]
+				return True
 			elif len(self.showNumbers) == 1:
 				found = False
 				topEpisode = 0
 				for season in self.seasonInfo:
 					topEpisode += int(season)
 
-				if self.showNumbers[0] > 0 and self.showNumbers[0] < 100:
-					## check folder path for season number
-					## Remove excess puncuation
-					punctuation = string.punctuation.replace('(','').replace(')','')
-					for char in range(0,len(punctuation)):
-						if punctuation[char] in self.videoPath:
-							self.videoPath = self.videoPath.replace(punctuation[char], "")
+				## check folder path for season number
+				## Remove excess puncuation
+				punctuation = string.punctuation.replace('(','').replace(')','')
+				for char in range(0,len(punctuation)):
+					if punctuation[char] in self.videoPath:
+						self.videoPath = self.videoPath.replace(punctuation[char], "")
 
-					filePathFilters = [ "([\.\ \_\-]*?s(\d{1,3})[\.\ \_\-\/]*?)",
-										"([\.\ \_\-]*?season[\.\ \_\-](\d{1,3})[\.\ \_\-\/]*?)" ]
-					for phrase in filePathFilters:
-						seasonInPath = re.search(phrase, self.videoPath.lower())
-						if seasonInPath:
-							result = seasonInPath.groups()
-							self.SeEp[0] = int(result[1])
-							seasonWasInPath = True
-							print "Found season in path:", str(self.SeEp[0])
-
-					if seasonWasInPath:
-						if self.config['debug']:
-							print 'Checking with found season from path...'
-							print 'Using episode:', str(self.showNumbers[0])
+				filePathFilters = [ "([\.\ \_\-]*?s(\d{1,3})[\.\ \_\-\/]*?)",
+									"([\.\ \_\-]*?season[\.\ \_\-](\d{1,3})[\.\ \_\-\/]*?)" ]
+				for phrase in filePathFilters:
+					seasonInPath = re.search(phrase, self.videoPath.lower())
+					if seasonInPath:
+						result = seasonInPath.groups()
+						self.SeEp[0] = int(result[1])
+						print "Found season in path:", self.SeEp[0]
+						print 'Checking with found season from path...'
+						print 'Using episode:', str(self.showNumbers[0])
 						self.SeEp[1] = self.showNumbers[0]
-						found = self.summary()
-						if found != False:
-							done = True
-					else:
-						found = False
-				if not done:
-					processAsFullCount = False
-					if seasonWasInPath and self.SeEp[0] <= topSeason:
-						print str(self.SeEp[0]) + "<=" + str(topSeason)
-						seasonTopEpisode = self.showInfo[self.SeEp[0]].keys()[-1]
-						if int(self.showNumbers[0]) > seasonTopEpisode:
-							processAsFullCount = True
-					if not processAsFullCount:
-						if len(str(self.showNumbers[0])) == 3:
-							self.SeEp[0] = int(str(self.showNumbers[0])[0])
-							self.SeEp[1] = int(str(self.showNumbers[0])[1:])
-						else:
-							self.SeEp[0] = 1
-							self.SeEp[1] = self.showNumbers[0]
-						found = self.summary()
-						if found != False:
-							found = True
+						if self.check():
+							return True
 
-					else:
-						## assume the number is a full sequencial count not season and Episode
-						error = False
-						result = self.findByEpisodeNumber(self.showNumbers[0])
-						if self.config['debug']:
-							print "FindByEpisodeNumber Result:", str(result)
-						if result != -1:
-							self.SeEp = result
+				if len(str(self.showNumbers[0])) == 3:
+					self.SeEp[0] = int(str(self.showNumbers[0])[0])
+					self.SeEp[1] = int(str(self.showNumbers[0])[1:])
+				else:
+					self.SeEp[0] = 1
+					self.SeEp[1] = self.showNumbers[0]
+				if self.check():
+					return True
+
+				## assume the number is a full sequencial count not season and Episode
+				result = self.findByEpisodeNumber(self.showNumbers[0])
+				if self.config['debug']:
+					print "FindByEpisodeNumber Result:", str(result)
+				if result:
+					self.SeEp = result
+					return True
 		raise Exception("Failed to find Season/Episode information.")
 
 class tvShow:
