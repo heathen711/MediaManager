@@ -1313,8 +1313,8 @@ class MediaManager(object):
 					found = False
 					for expression in self.config['episodeRegEx']:
 						if re.search(expression, " {} ".format(fileName.lower())):
-							print path
-							curFile = os.path.join(path, fileName)
+							print path[0]
+							curFile = os.path.join(path[0], fileName)
 							if curFile not in self.config['failedConverts']:
 								self.rawTvShows.append(curFile)
 								print "Added:", fileName, "to TV Shows Queue."
