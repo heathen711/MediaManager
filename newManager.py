@@ -14,6 +14,7 @@ import subprocess
 import sys
 import unicodedata
 import urllib
+import pprint
 
 from difflib import SequenceMatcher as SM
 from random import randint
@@ -1220,7 +1221,8 @@ class MediaManager(object):
 		data.sort(reverse=True)
 
 		if self.config['debug']:
-			print "Building tv collection from:", data
+			print "Building tv collection from:"
+			pprint.pprint(data)
 
 		folderSets = []
 
@@ -1228,7 +1230,8 @@ class MediaManager(object):
 			folderSets.append({"folder": os.path.dirname(line), "files": [os.path.basename(line)]})
 
 		if self.config['debug']:
-			print "Folder sets:", folderSets
+			print "Folder sets:"
+			pprint.pprint(folderSets)
 
 		collectedSets = []
 		while len(folderSets) > 0:
@@ -1251,7 +1254,8 @@ class MediaManager(object):
 				collectedSets.append(tempSet)
 
 		if self.config['debug']:
-			print "Collected sets:", collectedSets
+			print "Collected sets:"
+			pprint.pprint(collectedSets)
 
 		for index in xrange(len(collectedSets)):
 			commonPrefix = os.path.commonprefix(collectedSets[index]["folder"])
@@ -1267,7 +1271,8 @@ class MediaManager(object):
 				collectedSets.append(tempSet)
 
 		if self.config['debug']:
-			print "Detangled collected sets:", collectedSets
+			print "Detangled collected sets:"
+			pprint.pprint(collectedSets)
 
 		collectedSets.sort()
 		return collectedSets
