@@ -602,34 +602,9 @@ class tvEpisode(videoClass):
 
 class tvShow:
 	def getShowConfirmation(self, assume = False):
-		if assume and self.config['auto']:
-			summary = self.summary()
-			print "Found a match."
-			if not self.config['auto']:
-				print summary
+		if self.summary():
 			self.selectedTvShow = self.showEpisodeInfo
 			return True
-		else:
-			while True:
-				summary = self.summary()
-				print '\n' + self.episode
-				print "Looking up", self.showInfo['SeriesName'] + " information... "
-				print "Displaying Pilot episode for confirmation: "
-				print summary
-				print "1 - Use this TV Show."
-				print "2 - Back"
-				done = raw_input("Choice: ")
-				if done.isdigit():
-					done = int(done)
-					if done == 1:
-						self.selectedTvShow = self.config['tvdbHandler'].getShowInfo(self.showInfo['seriesid'])
-						return True
-					elif done == 2:
-						return False
-					else:
-						print "Invalid choice. Please Try again."
-				else:
-					print "Invalid input. Please try again."
 		return False
 
 	def summary(self):
