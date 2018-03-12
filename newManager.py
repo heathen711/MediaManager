@@ -403,6 +403,8 @@ class videoClass:
 			self.videoPath = self.videoPath + os.sep
 		self.videoFile = videoFile
 		self.manualOverRide = False
+		print self.videoPath
+		print self.videoFile
 		self.originalVideo = os.path.join(self.videoPath, self.videoFile)
 		self.forceConvert = False
 
