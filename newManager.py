@@ -320,7 +320,7 @@ class videoClass:
 		else:
 			self.command = ""
 
-		self.command += "/usr/bin/env ffmpeg -i \"{}\"".foramt(self.originalVideo)
+		self.command += "/usr/bin/env ffmpeg -i \"{}\"".format(self.originalVideo)
 
 		if self.streams['video']:
 			if self.config['debug']:
