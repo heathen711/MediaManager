@@ -993,87 +993,12 @@ class tvShow:
 		self.tvShowTitle = episodes[0].lower()
 		self.nameFilter()
 		self.tvShowTitle = self.tvShowTitle.title()
-		if self.config['debug']:
-			print "Finished name filter."
-			print self.error
 
-		if not self.error:
-			self.lookup()
-			if not self.error:
-				print 'Retriving additional online information...'
-				self.isAnime()
-			if self.config['debug']:
-				print "Finished lookup."
-				print self.error
+		self.lookup()
+		self.isAnime()
 
-		if not self.error:
-			for index in xrange(len(self.episodes)):
-				self.episodes[index] = tvEpisode(self.config, self.folderPath, self.episodes[index], self.selectedTvShow, self.anime)
-		if not self.error:
-			if self.config['auto']:
-				for index in xrange(len(self.episodes)):
-					print str(index+1).zfill(2) + " -", self.episodes[index].printOut()
-			else:
-				while True:
-					print "Search results: "
-					for index in xrange(len(self.episodes)):
-						print str(index+1).zfill(2) + " -", self.episodes[index].printOut()
-
-					print str(len(self.episodes)+1).zfill(2) + " - Change whole season"
-					print str(len(self.episodes)+2).zfill(2) + " - Continue"
-					choice = raw_input("Selection: ")
-					if len(choice) > 0:
-						if choice.isdigit():
-							choice = int(choice)-1
-							if choice >= 0 and choice < len(self.episodes):
-								self.episodes[choice].getConfirmation()
-							elif choice == len(self.episodes):
-								while True:
-									bottomSeason = self.selectedTvShow.keys()[0]
-									topSeason = self.selectedTvShow.keys()[-1]
-									if bottomSeason == 0:
-										count = topSeason + 1
-									else:
-										count = topSeason
-									print "This show has", str(count) + " seasons.", str(bottomSeason) + " -", str(topSeason)
-									newSeason = raw_input("Enter in new season number: ")
-									if len(newSeason) > 0:
-										if newSeason.isdigit():
-											newSeason = int(newSeason)
-											if newSeason >= bottomSeason and newSeason <= topSeason:
-												for index in xrange(len(self.episodes)):
-													self.episodes[index].setSeason(newSeason)
-												break
-											elif newSeason > topSeason:
-												while True:
-													overRide = raw_input(str(newSeason) + " is greater then the show has, are you sure you wish to use", str(newSeason) + "? (Y/N): ")
-													if len(overRide) == 1:
-														overRide = overRide.lower()
-														if overRide == 'y':
-															for index in xrange(len(self.episodes)):
-																self.episodes[index].setSeason(newSeason)
-															break
-														elif overRide == 'n':
-															break
-														else:
-															print "Invalid choice, please try again."
-													else:
-														print "Invalid input, please try again."
-												break
-											else:
-												print "Invalid selection. Please try again."
-										else:
-											print "Invalid input, please try again."
-									else:
-										print "Invalid input, please try again."
-							elif choice == len(self.episodes)+1:
-								break
-							else:
-								print "Invalid choice, please try again."
-						else:
-							print "Invalid input, please try again."
-					else:
-						print "Invalid input, please try again."
+		for index in xrange(len(self.episodes)):
+			self.episodes[index] = tvEpisode(self.config, self.folderPath, self.episodes[index], self.selectedTvShow, self.anime)
 
 class movie(videoClass):
 	def __init__(self, config, videoPath, videoFile):
