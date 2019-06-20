@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
     config.update(args)
 
-    logging.warning(str(config))
+    logging.info(str(config))
 
     if config.get("watch"):
         watch_for_media(config["watch_folder"])
