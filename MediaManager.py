@@ -8,8 +8,12 @@ import shutil
 import re
 import time
 import logging
+import itertools
 
 logging.basicConfig(format='%(asctime)s: %(message)s', datefmt='%m/%d/%Y_%H:%M:%S', level=logging.DEBUG)
+
+def reverse_enumerate(l):
+    return itertools.izip(xrange(len(l)-1, -1, -1), reversed(l))
 
 def watch_for_media(folder):
     last_time_stamp = os.stat(folder).st_mtime
@@ -20,6 +24,15 @@ def watch_for_media(folder):
 
 def find_media(folder):
     for root, folders, files in os.walk(folder):
+
+        # Filter out hidden item
+        for index, entry in reverse_enumerate(folders):
+            if entry.startswith("."):
+                del folders[index]
+        for index, entry in files:
+            if entry.startswith("."):
+                del files[index]
+                
         # logging.info("Checking: {}".format(root))
         for entry in files:
             ext = os.path.splitext(entry)[1].lower()
