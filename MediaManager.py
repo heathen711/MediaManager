@@ -27,7 +27,7 @@ def find_media(folder):
 
         # Filter out hidden item
         for index, entry in reverse_enumerate(folders):
-            if entry.startswith("."):
+            if entry.startswith(".") or entry.startswith('@'):
                 del folders[index]
         for index, entry in reverse_enumerate(files):
             if entry.startswith("."):
