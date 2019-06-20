@@ -9,7 +9,7 @@ import re
 import time
 import logging
 
-logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m%d%Y_%H%M%S.%f', level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m%d%Y_%H%M%S', level=logging.DEBUG)
 
 def watch_for_media(folder):
     last_time_stamp = os.stat(folder).st_mtime
