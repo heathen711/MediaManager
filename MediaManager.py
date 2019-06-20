@@ -12,6 +12,8 @@ import itertools
 
 logging.basicConfig(format='%(asctime)s: %(message)s', datefmt='%m/%d/%Y_%H:%M:%S', level=logging.DEBUG)
 
+tv_show_cache = {}
+
 def reverse_enumerate(l):
     return itertools.izip(xrange(len(l)-1, -1, -1), reversed(l))
 
@@ -50,8 +52,13 @@ def check_media(dir, entry):
 def convert_episode(dir, entry, episode_match):
     logging.info("Found TV episode at: {}".format(os.path.join(dir, entry)))
 
+    name = entry[:entry.find(episode_match.group(0))]
+    print(name)
+
+
 def convert_movie(dir, entry):
-    logging.info("Found movie at: {}".format(os.path.join(dir, entry)))
+    # logging.info("Found movie at: {}".format(os.path.join(dir, entry)))
+    pass
 
 if __name__ == "__main__":
     arg_parser = argparse.ArgumentParser()
