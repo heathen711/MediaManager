@@ -6,6 +6,7 @@ import xml.etree.ElementTree as ET
 
 from url_functions import getOnlineContent
 
+
 class season():
     def keys(self):
         tempKeys = sorted(self.episodes.keys(), key=lambda key: int(key))
@@ -24,6 +25,7 @@ class season():
 
     def __init__(self, episodes):
         self.episodes = episodes
+
 
 class show():
     def keys(self):
@@ -51,7 +53,8 @@ class show():
             return []
 
     def __repr__(self):
-        info = self.seriesInfo['SeriesName'] + " with " + str(len(self.seasons.keys())) + " seasons.\n"
+        info = self.seriesInfo['SeriesName'] + " with " + \
+            str(len(self.seasons.keys())) + " seasons.\n"
         sortedKeys = sorted(self.seasons.keys(), key=lambda key: int(key))
         for key in sortedKeys:
             info += str(self.seasons[str(key)])
@@ -62,6 +65,7 @@ class show():
         self.seasons = {}
         for key in sortedInfo.keys():
             self.seasons[key] = season(sortedInfo[key])
+
 
 class TVDB:
     def logger(self, data):
@@ -125,8 +129,7 @@ class TVDB:
     def getShowInfo(self, seriesID):
         result = False
         rawData = False
-        if self.debug:
-            print "Retriving online info for series ID: " + seriesID
+        print "Retriving online info for series ID: " + seriesID
         path = '/series/{}/all/en.xml'.format(seriesID)
         if os.path.exists(os.path.join("/tmp/", path)):
             with open(os.path.join("/tmp/", path), mode='r') as cacheReader:
@@ -144,33 +147,19 @@ class TVDB:
             if "episodes" in data.keys():
                 data["episodes"] = self.sortEpisodes(data["episodes"])
                 result = show(data["series"], data["episodes"])
-                if self.debug:
-                    print result
+                print result
         return result
 
     def search(self, showTitle):
-        if len(showTitle) > 0:
-            URL = "http://thetvdb.com/api/GetSeries.php?seriesname={}".format(urllib.quote_plus(showTitle))
-            if self.debug:
-                print "Accessing tvdb: " + URL
-            rawData = getOnlineContent(URL)
-            if rawData:
-                rawData = rawData.replace("&", "and")
-                if self.debug:
-                    print "Get search results."
-                shows = []
-                if self.debug:
-                    print "Parsing search results..."
-                shows = self.xmlSeriesToDict(rawData)
-                if self.debug:
-                    print "Done."
-                return shows
-            else:
-                return False
-        else:
-            return False
+        URL = "http://thetvdb.com/api/GetSeries.php?seriesname={}".format(
+            urllib.quote_plus(showTitle))
+        rawData = getOnlineContent(URL)
+        rawData = rawData.replace("&", "and")
+        shows = []
+        shows = self.xmlSeriesToDict(rawData)
+        return shows
 
-    def askForShow(self, showTitle = False):
+    def askForShow(self, showTitle=False):
         while True:
             if not showTitle:
                 showTitle = raw_input("Enter in show title: ")
@@ -206,11 +195,12 @@ class TVDB:
                 print "No shows found, please try again."
                 showTitle = False
 
-    def __init__(self, apiKey, debug = True):
+    def __init__(self, apiKey, debug=True):
         self.debug = debug
         if os.path.exists(os.path.join(os.path.dirname(__file__), "history.log")):
             os.remove(os.path.join(os.path.dirname(__file__), "history.log"))
         self.apikey = apiKey
+
 
 if __name__ == '__main__':
     debug = True
