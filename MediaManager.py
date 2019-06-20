@@ -9,7 +9,7 @@ import re
 import time
 import logging
 
-logging.basicConfig(format='%(asctime)s::%(message)s', datefmt='%m/%d/%Y_%H:%M:%S', level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s: %(message)s', datefmt='%m/%d/%Y_%H:%M:%S', level=logging.DEBUG)
 
 def watch_for_media(folder):
     last_time_stamp = os.stat(folder).st_mtime
@@ -20,9 +20,9 @@ def watch_for_media(folder):
 
 def find_media(folder):
     for root, folders, files in os.walk(folder):
-        logging.info("Checking: {}".format(root))
+        # logging.info("Checking: {}".format(root))
         for entry in files:
-            ext = os.path.splitext(entry)
+            ext = os.path.splitext(entry)[1].lower()
             if ext in config["accepted_video_exts"]:
                 check_media(root, entry)
 
