@@ -1,4 +1,4 @@
-#!/opt/bin/python
+#!/usr/bin/env python -u
 
 import argparse
 import json
@@ -9,8 +9,7 @@ import re
 import time
 import logging
 
-logger = logging.Logger()
-logger.setLevel(logging.DEBUG)
+logger = logging.Logger(name="Default", level=logging.DEBUG)
 
 def watch_for_media(folder):
     last_time_stamp = os.stat(folder).st_mtime
