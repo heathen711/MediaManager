@@ -48,12 +48,11 @@ if __name__ == "__main__":
 
     args = vars(arg_parser.parse_args())
 
+    global config
     with open("./config.json") as reader:
         config = json.load(reader)
 
     config.update(args)
-
-    global config
 
     if config.get("watch"):
         watch_for_media(config["watch_folder"])
