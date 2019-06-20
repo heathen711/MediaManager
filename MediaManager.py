@@ -29,10 +29,10 @@ def find_media(folder):
         for index, entry in reverse_enumerate(folders):
             if entry.startswith("."):
                 del folders[index]
-        for index, entry in files:
+        for index, entry in reverse_enumerate(files):
             if entry.startswith("."):
                 del files[index]
-                
+
         # logging.info("Checking: {}".format(root))
         for entry in files:
             ext = os.path.splitext(entry)[1].lower()
