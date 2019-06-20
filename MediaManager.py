@@ -9,7 +9,8 @@ import re
 import time
 import logging
 
-logging.setLevel(logging.DEBUG)
+logger = logging.logger()
+logger.setLevel(logging.DEBUG)
 
 def watch_for_media(folder):
     last_time_stamp = os.stat(folder).st_mtime
@@ -20,7 +21,7 @@ def watch_for_media(folder):
 
 def find_media(folder):
     for root, folders, files in os.walk(folder):
-        logging.info("Checking: {}".format(root))
+        logger.info("Checking: {}".format(root))
         for entry in files:
             ext = os.path.splitext(entry)
             if ext in config["accepted_video_exts"]:
@@ -35,10 +36,10 @@ def check_media(dir, entry):
     convert_movie(dir, entry)
 
 def convert_episode(dir, entry, episode_match):
-    logging.info("Found TV episode at: {}".format(os.path.join(dir, entry)))
+    logger.info("Found TV episode at: {}".format(os.path.join(dir, entry)))
 
 def convert_movie(dir, entry):
-    logging.info("Found movie at: {}".format(os.path.join(dir, entry)))
+    logger.info("Found movie at: {}".format(os.path.join(dir, entry)))
 
 if __name__ == "__main__":
     arg_parser = argparse.ArgumentParser()
