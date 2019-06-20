@@ -9,6 +9,8 @@ import re
 import time
 import logging
 
+logging.setLevel(logging.DEBUG)
+
 def watch_for_media(folder):
     last_time_stamp = os.stat(folder).st_mtime
     if last_time_stamp < os.stat(folder).st_mtime:
