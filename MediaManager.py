@@ -9,7 +9,7 @@ import re
 import time
 import logging
 
-logger = logging.logger()
+logger = logging.Logger()
 logger.setLevel(logging.DEBUG)
 
 def watch_for_media(folder):
