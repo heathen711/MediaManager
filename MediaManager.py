@@ -44,7 +44,7 @@ def check_media(dir, entry):
     for regex in config["episode_regexs"]:
         result = re.search(regex, entry, re.I|re.U)
         if result:
-            convert_episode(dir, entry, result)
+            return convert_episode(dir, entry, result)
     convert_movie(dir, entry)
 
 def convert_episode(dir, entry, episode_match):
