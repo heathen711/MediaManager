@@ -151,8 +151,7 @@ class TVDB:
         return result
 
     def search(self, showTitle):
-        URL = "http://thetvdb.com/api/GetSeries.php?seriesname={}".format(
-            urllib.quote_plus(showTitle))
+        URL = "http://thetvdb.com/api/GetSeries.php?seriesname={}".format(urllib.quote_plus(showTitle))
         rawData = getOnlineContent(URL)
         rawData = rawData.replace("&", "and")
         shows = []
