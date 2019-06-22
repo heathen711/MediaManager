@@ -229,6 +229,7 @@ def convert_episode(folder, entry, episode_match):
 
 ## MediaManager functions
 def watch_for_media(folder):
+    find_media(folder)
     last_time_stamp = os.stat(folder).st_mtime
     if last_time_stamp < os.stat(folder).st_mtime:
         find_media(folder)
