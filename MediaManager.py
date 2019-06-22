@@ -201,7 +201,7 @@ def convert_episode(folder, entry, episode_match):
         
     new_path = os.path.join(
             config["tv_shows_folder"], show_info["SeriesName"], 
-            "{} - S{:02}E{:02}.{}".format(
+            "{} - S{:02}E{:02}{}".format(
                 show_info["SeriesName"], int(season_episode_info["season"]), 
                 int(season_episode_info["episode"]), os.path.splitext(entry)[1]
             )
@@ -234,7 +234,7 @@ def watch_for_media(folder):
     if last_time_stamp < os.stat(folder).st_mtime:
         find_media(folder)
         last_time_stamp = os.stat(folder).st_mtime
-    time.sleep(15*60)
+    time.sleep(15)
 
 def find_media(folder):
     for root, folders, files in os.walk(folder):
