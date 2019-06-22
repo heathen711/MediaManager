@@ -3,3 +3,4 @@ error.txt
 ffmpeg*
 .tags
 .ropeproject
+*.log
