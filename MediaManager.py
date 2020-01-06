@@ -67,7 +67,11 @@ def find_on_tmdb(name):
                 # replace special chars
                 title = re.sub(r"[\:\.\_\-\(\)\[\]\"]", "", title)
                 ratio = SequenceMatcher(None, title, search_name).ratio()
+<<<<<<< HEAD
                 logging.debug("{} ~ {} ({}) => {:.2%}".format(search_name, entry["title"].encode("ascii", "replace"), title, ratio))
+=======
+                logging.debug("{} ~ {} => {:.2%}".format(search_name, entry["title"].encode("ascii", "replace"), ratio))
+>>>>>>> 9ea16638ec4f986c9bb78daf4f84b146d273666d
                 if ratio >= 0.85:
                     return entry
         search_name = " ".join(search_name.split(" ")[:-2]).strip()
@@ -211,10 +215,22 @@ def convert_episode(folder, entry, episode_match):
     if name in config.get("renames", {}):
         name = config["renames"][name]
     
+<<<<<<< HEAD
     # Search TVDB for the show
     show_info = find_on_tvdb(name)
     logging.debug("Show info: {}".format(show_info))
 
+=======
+    try:
+        # Search TVDB for the show
+        show_info = find_on_tvdb(name)
+        logging.debug("Show info: {}".format(show_info))
+    except Exception as error:
+        logging.error(error)
+        show_info = {
+            "SeriesName": name
+        }
+>>>>>>> 9ea16638ec4f986c9bb78daf4f84b146d273666d
         
     # Get the season/episode info we matched earlier
     season_episode_info = episode_match.groupdict()
