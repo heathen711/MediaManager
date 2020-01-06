@@ -22,10 +22,7 @@ from cachecontrol import CacheControlAdapter
 from cachecontrol.heuristics import ExpiresAfter
 
 ## Create request session with caching for a day
-adapter = CacheControlAdapter(heuristic=ExpiresAfter(days=1))
-sess = requests.Session()
-sess.mount('http://', adapter)
-cached_sess = CacheControl(sess, cache_etags=False)
+cached_sess = CacheControl(requests.Session(), cache_etags=False, heuristic=ExpiresAfter(days=1))
 
 def reverse_enumerate(l):
     return itertools.izip(xrange(len(l)-1, -1, -1), reversed(l))
@@ -110,13 +107,14 @@ def convert_movie(folder, entry):
     
 ## TV Show functions
 def _clean_out_special_chars(name):
-    return re.sub("\W", "", name)
+    return re.sub(r"[^a-zA-Z\d ]", "", name)
 
 def find_on_tvdb(name):
-    url = "http://thetvdb.com/api/GetSeries.php?seriesname={}".format(urllib.quote_plus(name))
+    name = _clean_out_special_chars(name).lower()
+    url = "https://thetvdb.com/api/GetSeries.php?seriesname={}".format(urllib.quote_plus(name))
     
     request_handler = cached_sess.get(url)
-    logging.debug(request_handler.text)
+    logging.debug("Response: {}".format(request_handler.text.encode("ascii", "ignore")))
     
     xml_handler = ET.fromstring(request_handler.text.encode("ascii", "ignore"))
     
@@ -130,6 +128,8 @@ def find_on_tvdb(name):
     
     if not results:
         raise Exception("Failed to find any matching TV show for: {} via TVDB.".format(name))
+        
+    logging.debug("Results: {}".format(pprint.pformat(results)))
             
     highest = None
     if results:
@@ -141,12 +141,25 @@ def find_on_tvdb(name):
             current_ratio = SequenceMatcher(None, _clean_out_special_chars(result["SeriesName"]).lower(), name).ratio()
             logging.debug("Ratio for: {} => {}: {:.2%}".format(name, result["SeriesName"], current_ratio))
             if current_ratio < 0.85:
-                continue
+                if result["AliasNames"]:
+                    highest_alias_ratio = 0.0
+                    for alias in result["AliasNames"].split("|"):
+                        if not alias:
+                            continue
+                        current_alias_ratio = SequenceMatcher(None, _clean_out_special_chars(alias).lower(), name).ratio()
+                        logging.debug("Ratio for: {} => {}: {:.2%}".format(name, alias, current_ratio))
+                        if current_alias_ratio > highest_alias_ratio:
+                            highest_alias_ratio = current_alias_ratio
+                    if highest_alias_ratio < 0.85:
+                        continue
+                else:
+                    continue
             if current_ratio > highest_ratio:
                 highest = index
                 highest_ratio = SequenceMatcher(None, results[highest]["SeriesName"], name).ratio
     if highest is None:
         raise Exception("Failed to find a match close enough to: {}".format(name))
+        
     return results[highest]
     
 def update_season_episode_info(folder, entry, season_episode_info, show_info):
@@ -157,7 +170,7 @@ def update_season_episode_info(folder, entry, season_episode_info, show_info):
             season_episode_info["episode"] = season_episode_info["count"]
         return season_episode_info
     
-    url = 'http://thetvdb.com/api/{api}/series/{series_id}/all/en.xml'.format(
+    url = 'https://thetvdb.com/api/{api}/series/{series_id}/all/en.xml'.format(
         api="4E7A4FBBC8CF4D74", series_id=show_info["seriesid"]
     )
     
@@ -200,7 +213,7 @@ def convert_episode(folder, entry, episode_match):
     # Filter name to get what is most likely the show name
     name = entry[:entry.find(episode_match.group(0))]
     logging.debug(name)
-    filters = [r"\[.+?\]", r"\(.+?\)"]
+    filters = [r"\[.+?\]", r"\([^\d]+?\)"]
     for item in filters:
         result = re.search(item, name, re.U)
         if result:
@@ -228,7 +241,7 @@ def convert_episode(folder, entry, episode_match):
         raise Exception("Failed to find season/episode information for: {}".format(os.path.join(folder, entry)))
         
     new_path = os.path.join(
-            config["tv_shows_folder"], show_info["SeriesName"], 
+            config["tv_shows_folder"], show_info["SeriesName"], "Season {:0>2}".format(int(season_episode_info["season"])),
             "{} - S{:02}E{:02}{}".format(
                 show_info["SeriesName"], int(season_episode_info["season"]), 
                 int(season_episode_info["episode"]), os.path.splitext(entry)[1]
@@ -249,10 +262,10 @@ def convert_episode(folder, entry, episode_match):
             pass
         else:
             raise
-    shutil.move(
-        os.path.join(folder, entry),
-        new_path
-    )
+    # shutil.move(
+    #     os.path.join(folder, entry),
+    #     new_path
+    # )
 
 
 ## MediaManager functions
