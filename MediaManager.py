@@ -262,10 +262,10 @@ def convert_episode(folder, entry, episode_match):
             pass
         else:
             raise
-    # shutil.move(
-    #     os.path.join(folder, entry),
-    #     new_path
-    # )
+    shutil.move(
+        os.path.join(folder, entry),
+        new_path
+    )
 
 
 ## MediaManager functions
