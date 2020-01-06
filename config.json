@@ -64,5 +64,8 @@
     "tv_shows_folder": "/share/Multimedia/TV Shows/",
     "tvdb_api_key": "4E7A4FBBC8CF4D74",
     "watch_folder": "/share/Download/",
-    "debug": false
+    "debug": false,
+    "renames": {
+        "Tejina-senpai": "Magical Sempai"
+    }
 }

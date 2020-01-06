@@ -1,0 +1,1 @@
+screen -dmS media ./MediaManager.py --auto --watch

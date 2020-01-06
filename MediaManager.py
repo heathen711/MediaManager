@@ -36,16 +36,17 @@ def find_on_tmdb(name):
     name = name.replace(os.path.splitext(name)[1], "")
     
     # replace special chars
-    for item in "._-()[]\"\'":
-        name = name.replace(item, " ")
+    name = re.sub(r"[\:\_\-\(\)\[\]\"]", "", name)
+    
+    name = name.replace('.', ' ')
         
-    result = re.search(r"\d{4}", name)
-    if result:
-        name = name[:name.find(result.group(0))]
+    name = re.sub(r"\d{4}", "", name)
         
     for item in config["common_terms"]:
         if item in name:
             name = name.replace(item, "")
+            
+    name = name.strip()
     
     logging.debug(name)
     
@@ -64,27 +65,26 @@ def find_on_tmdb(name):
             for entry in request_handler.json()["results"]:
                 title = entry["title"]
                 # replace special chars
-                for item in "._-()[]\"\'":
-                    title = title.replace(item, " ")
+                title = re.sub(r"[\:\.\_\-\(\)\[\]\"]", "", title)
                 ratio = SequenceMatcher(None, title, search_name).ratio()
-                logging.debug("{} ~ {} => {:.2%}".format(search_name, entry["title"], ratio))
+                logging.debug("{} ~ {} ({}) => {:.2%}".format(search_name, entry["title"].encode("ascii", "replace"), title, ratio))
                 if ratio >= 0.85:
                     return entry
-        search_name = " ".join(search_name.split(" ")[:-2])
+        search_name = " ".join(search_name.split(" ")[:-2]).strip()
         if len(search_name) < 2:
             break
         
     raise Exception("Failed to find a movie matching: {}".format(name))
 
 def convert_movie(folder, entry):
-    logging.info("Found movie at: {}".format(os.path.join(folder, entry)))
+    logging.info("Found movie at: {}".format(os.path.join(folder, entry).encode("ascii", "replace")))
     
-    movie_info = find_on_tmdb(entry)
+    movie_info = find_on_tmdb(entry.encode("ascii", "ignore"))
     logging.debug("Movie info: {}".format(movie_info))
     
     new_path = os.path.join(
-            config["movies_folder"], movie_info["title"], "{} ({}){}".format(
-                movie_info["title"], movie_info["release_date"][:movie_info["release_date"].find("-")],
+            config["movies_folder"], movie_info["title"].encode("ascii", "replace"), "{} ({}){}".format(
+                movie_info["title"].encode("ascii", "replace"), movie_info["release_date"][:movie_info["release_date"].find("-")],
                 os.path.splitext(entry)[1]
             )
         )
@@ -109,6 +109,9 @@ def convert_movie(folder, entry):
     )
     
 ## TV Show functions
+def _clean_out_special_chars(name):
+    return re.sub("\W", "", name)
+
 def find_on_tvdb(name):
     url = "http://thetvdb.com/api/GetSeries.php?seriesname={}".format(urllib.quote_plus(name))
     
@@ -128,17 +131,32 @@ def find_on_tvdb(name):
     if not results:
         raise Exception("Failed to find any matching TV show for: {} via TVDB.".format(name))
             
-    highest = 0
-    if len(results) > 1:
-        highest_ratio = SequenceMatcher(None, results[highest]["SeriesName"], name).ratio
+    highest = None
+    if results:
+        if highest:
+            highest_ratio = SequenceMatcher(None, _clean_out_special_chars(results[highest]["SeriesName"]).lower(), name).ratio
+        else:
+            highest_ratio = 0.0
         for index, result in enumerate(results):
-            current_ratio = SequenceMatcher(None, result["SeriesName"], name).ratio()
+            current_ratio = SequenceMatcher(None, _clean_out_special_chars(result["SeriesName"]).lower(), name).ratio()
+            logging.debug("Ratio for: {} => {}: {:.2%}".format(name, result["SeriesName"], current_ratio))
+            if current_ratio < 0.85:
+                continue
             if current_ratio > highest_ratio:
                 highest = index
                 highest_ratio = SequenceMatcher(None, results[highest]["SeriesName"], name).ratio
+    if highest is None:
+        raise Exception("Failed to find a match close enough to: {}".format(name))
     return results[highest]
     
 def update_season_episode_info(folder, entry, season_episode_info, show_info):
+    if not show_info.get("seriesid"):
+        if not season_episode_info.get("season"):
+            season_episode_info["season"] = 1
+        if season_episode_info.get("count"):
+            season_episode_info["episode"] = season_episode_info["count"]
+        return season_episode_info
+    
     url = 'http://thetvdb.com/api/{api}/series/{series_id}/all/en.xml'.format(
         api="4E7A4FBBC8CF4D74", series_id=show_info["seriesid"]
     )
@@ -160,11 +178,11 @@ def update_season_episode_info(folder, entry, season_episode_info, show_info):
                 episodes[str(info["SeasonNumber"])] = {}
             episodes[str(info["SeasonNumber"])][str(info["EpisodeNumber"])] = info
             
-    # pprint.pprint(episodes)
+    # logging.debug("Episode info:\n{}".format(pprint.pformat(episodes)))
     
     for season in [x for x in sorted(episodes.keys(), key=lambda a: int(a), reverse=True)]:
         for episode in [x for x in sorted(episodes[season].keys(), key=lambda a: int(a), reverse=True)]:
-            if episode == season_episode_info["episode"] or episodes[season][episode].get("absolute_number") == int(season_episode_info.get("count", -1)):
+            if episode == season_episode_info.get("episode") or episodes[season][episode].get("absolute_number") == int(season_episode_info.get("count", -1)):
                 season_episode_info["season"] = int(season)
                 season_episode_info["episode"] = int(episode)
                 return season_episode_info
@@ -173,7 +191,11 @@ def update_season_episode_info(folder, entry, season_episode_info, show_info):
         
     
 def convert_episode(folder, entry, episode_match):
-    logging.info("Found TV episode at: {}".format(os.path.join(folder, entry)))
+    logging.info(
+        "Found TV episode in: {} called: {}".format(
+            folder.encode("ascii", "backslashreplace"), entry.encode("ascii", "backslashreplace")
+        )
+    )
 
     # Filter name to get what is most likely the show name
     name = entry[:entry.find(episode_match.group(0))]
@@ -183,20 +205,27 @@ def convert_episode(folder, entry, episode_match):
         result = re.search(item, name, re.U)
         if result:
             name = name.replace(result.group(0), "")
-    name = name.strip(" .").replace(".", " ").replace("_", " ")
+    name = name.strip(" .").replace(".", " ").replace("_", " ").strip('- ')
     logging.debug(name)
+    
+    if name in config.get("renames", {}):
+        name = config["renames"][name]
     
     # Search TVDB for the show
     show_info = find_on_tvdb(name)
     logging.debug("Show info: {}".format(show_info))
-    
+
+        
     # Get the season/episode info we matched earlier
     season_episode_info = episode_match.groupdict()
-    logging.debug(season_episode_info)
+    logging.debug("season_episode_info: {}".format(season_episode_info))
     
-    season_episode_info = update_season_episode_info(folder, entry, season_episode_info, show_info)
+    if season_episode_info.get("count"):
+        season_episode_info = update_season_episode_info(folder, entry, season_episode_info, show_info)
+    if not (season_episode_info.get("season") and season_episode_info.get("episode")):
+        season_episode_info = update_season_episode_info(folder, entry, season_episode_info, show_info)
     
-    if len(season_episode_info) != 2:
+    if not (season_episode_info.get("season") and season_episode_info.get("episode")):
         raise Exception("Failed to find season/episode information for: {}".format(os.path.join(folder, entry)))
         
     new_path = os.path.join(
@@ -231,10 +260,11 @@ def convert_episode(folder, entry, episode_match):
 def watch_for_media(folder):
     find_media(folder)
     last_time_stamp = os.stat(folder).st_mtime
-    if last_time_stamp < os.stat(folder).st_mtime:
-        find_media(folder)
-        last_time_stamp = os.stat(folder).st_mtime
-    time.sleep(15)
+    while True:
+        if last_time_stamp < os.stat(folder).st_mtime:
+            find_media(folder)
+            last_time_stamp = os.stat(folder).st_mtime
+        time.sleep(15)
 
 def find_media(folder):
     for root, folders, files in os.walk(folder):
@@ -292,6 +322,9 @@ if __name__ == "__main__":
     arg_parser.add_argument("--debug", action="store_true",
         help="Print out debug messages."
     )
+    arg_parser.add_argument("--save", action="store_true",
+        help="Log output to file."
+    )
 
     args = vars(arg_parser.parse_args())
 
@@ -302,6 +335,7 @@ if __name__ == "__main__":
     config.update(args)
     
     logging.basicConfig(
+        filename="media_manager.log" if config.get("save") else None,
         format='%(asctime)s: %(message)s', datefmt='%m/%d/%Y_%H:%M:%S', 
         level=logging.DEBUG if config.get("debug") else logging.INFO
     )
